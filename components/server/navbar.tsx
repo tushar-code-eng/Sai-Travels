@@ -26,6 +26,7 @@ import {
 const Navbar = () => {
 
   const { data: session, status } = useSession();
+  console.log(session)
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,13 +36,13 @@ const Navbar = () => {
 
   const router = useRouter()
 
-  const handleClick = ()=>{
+  const handleClick = () => {
     router.push("/")
   }
 
   return (
     <div className=" flex items-center justify-between sm:p-1 bg-white text-black sticky top-0 z-10 sm:border-b-2 border-b-4 shadow-sm">
-      <div className='cursor-pointer sm:w-20 w-24 items-start justify-start' onClick={()=>handleClick()}>
+      <div className='cursor-pointer sm:w-20 w-24 items-start justify-start' onClick={() => handleClick()}>
         <Image src={LOGO} alt='LOGO' />
       </div>
       <div className="flex justify-center items-center gap-10">
@@ -149,13 +150,19 @@ const Navbar = () => {
             <div className="flex items-center space-x-4 px-4 py-1 mx-auto">
               <DropdownMenu>
                 <DropdownMenuTrigger className="cursor-pointer outline-none">
-                  <div className="text-lg font-semibold">{session?.user?.image && (
-                    <img
-                      src={session.user.image}
-                      alt={session.user.name || 'Profile Picture'}
-                      className="w-12 h-12 rounded-full"
-                    />
-                  )}</div>
+                  <div className="WOW text-lg font-semibold">
+                    {session?.user?.image ? (
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || 'Profile Picture'}
+                        className="w-12 h-12 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
+                        {session?.user?.fullName ? session.user.fullName.charAt(0).toUpperCase() : '?'}
+                      </div>
+                    )}
+                  </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="absolute right-0">
                   <DropdownMenuItem>

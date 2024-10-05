@@ -23,10 +23,11 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials: any): Promise<any> {
                 await dbConnection();
+                // console.log(credentials)
                 try {
                     const user = await UserModel.findOne({
                         $or: [
-                            { email: credentials.identifier },
+                            { email: credentials.email },
                             // { phone: credentials.identifier },
                         ],
                     });

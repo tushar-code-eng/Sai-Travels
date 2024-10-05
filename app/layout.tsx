@@ -4,6 +4,7 @@ import "./globals.css";
 import Footer from "@/components/server/footer";
 import { NextAuthProvider } from "./Providers";
 import { ToastProvider } from "@radix-ui/react-toast";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,14 +23,15 @@ export default function RootLayout({
 }>) {
   return (
     <NextAuthProvider>
-      <ToastProvider>
+      {/* <ToastProvider> */}
         <html lang="en">
           <body className={inter.className}>
             {children}
+            <Toaster />
             <Footer />
           </body>
         </html>
-      </ToastProvider>
+      {/* </ToastProvider> */}
     </NextAuthProvider>
   );
 }

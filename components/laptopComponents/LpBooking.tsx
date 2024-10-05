@@ -115,8 +115,8 @@ const LpBooking = () => {
         } else {
             if (timeoutId) {
                 clearTimeout(timeoutId)
-                console.log('i need to clear')
-                console.log(timeoutId)
+                // console.log('i need to clear')
+                // console.log(timeoutId)
             } else {
                 console.log('didnt worked')
             }

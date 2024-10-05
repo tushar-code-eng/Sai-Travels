@@ -21,16 +21,7 @@ const ProtectionRoute = ({ children }: { children: React.ReactNode }) => {
         }
 
         if (!session) {
-            // Construct the redirect URL with encoded parameters
-            const queryString = new URLSearchParams({
-                number: numberOfPassengers || '',
-                date: date || '',
-                pickfrom: pickupLocation || '',
-                dropto: dropoffLocation || '',
-                Price: totalPrice || '',
-            }).toString();
-
-            const redirectUrl = `/sign-in?redirected=true&urlfrom=${encodeURIComponent(`${pathname}?${queryString}`)}`;
+            const redirectUrl = `/sign-in?redirected=true`;
             router.push(redirectUrl);
         }
     }, [session, status, pathname, numberOfPassengers, date, pickupLocation, dropoffLocation, totalPrice, router]);

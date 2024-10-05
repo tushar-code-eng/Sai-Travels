@@ -47,6 +47,7 @@ const SignIn = () => {
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
+    console.log(data)
     const result = await signIn('credentials', {
       redirect: false,
       email: data.email,
