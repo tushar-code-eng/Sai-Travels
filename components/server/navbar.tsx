@@ -51,7 +51,7 @@ const Navbar = () => {
             <DialogTrigger asChild>
               <Button variant="outline" className="roundede-md">Contact</Button>
             </DialogTrigger>
-            <DialogContent className="w-[700px]">
+            <DialogContent className="md:w-[700px] w-[90%] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>
                   <div className=" text-2xl">Contact Us</div>
@@ -87,7 +87,7 @@ const Navbar = () => {
             <DialogTrigger asChild>
               <Button variant="outline" className="roundede-md">About Us</Button>
             </DialogTrigger>
-            <DialogContent className="w-[700px]">
+            <DialogContent className="md:w-[700px] w-[90%] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>
                   <div className=" text-2xl">About Us</div>

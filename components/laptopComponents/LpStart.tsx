@@ -3,6 +3,7 @@ import Image from "next/image"
 import querryImage from '@/public/querry.png'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import LpBox from "./LpBox";
+import MbStart from "../mobileComponents/MbStart";
 
 
 interface LpStartProps {
@@ -14,10 +15,12 @@ const LpStart = ({ targetRef }: LpStartProps) => {
     return (
         <div className="w-full mt-20" >
             <div className="w-[85%] mx-auto rounded-md " ref={targetRef}>
-                
                 <div className="">
-                    <div>
+                    <div className="hidden lg:block">
                         <LpBox />
+                    </div>
+                    <div className="lg:hidden block">
+                        <MbStart />
                     </div>
                     <div className="flex justify-center items-center">
                         Image

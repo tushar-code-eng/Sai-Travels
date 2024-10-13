@@ -5,7 +5,7 @@ import Image from 'next/image';
 import whatsapp from "@/public/whatsapp.png"
 import { Switch } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { useSearchParams,useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { DateAtom, DayAtom, DropOffPointAtom, MonthAtom, PickUpPointAtom, totalPriceAtom, YearAtom } from '@/app/(Recoil)/(atom)/FirstPage';
 import { bookingSleeperAtom } from '@/app/(Recoil)/(atom)/setBookingSleepers';
@@ -64,6 +64,7 @@ const MbPassangerDetails = () => {
         router.push(`/payment`)
     };
 
+
     return (
         <div className=' md:hidden'>
             <div className=" border-2 border-slate-300 w-[95%] m-auto mt-2 rounded-lg shadow-xl p-2">
@@ -95,13 +96,13 @@ const MbPassangerDetails = () => {
                     <div className="h-36 p-2 flex justify-center gap-6">
                         <div className=" flex flex-col justify-between" >
                             <div>
-                                Pickup time
+                                9:30PM
                             </div>
                             <div >
-                                duration
+                                8 hrs
                             </div>
                             <div >
-                                DropOff Time
+                                4:00AM
                             </div>
                         </div>
                         <div className="h-full w-2 bg-slate-300 flex flex-col items-center justify-between">
@@ -112,15 +113,23 @@ const MbPassangerDetails = () => {
                         </div>
                         <div className=" flex flex-col justify-between" >
                             <div>
-                                Pickup Location
+                                <b>CHANDIGARH</b>
                             </div>
                             <div >
-                                DropOff Location
+                                <b>JAMMU</b>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <form onSubmit={handleSubmitForm}>
+
+
+            </form>
+
+
             <div className='border-2 border-slate-300 w-[95%] m-auto mt-2 rounded-lg shadow-xl p-2'>
                 <div >
                     <div className='text-xl font-bold'>
@@ -142,36 +151,45 @@ const MbPassangerDetails = () => {
                     </div>
                     <input className='font-semibold outline-none w-full' placeholder='6280918368' />
                 </div>
-                <div className='flex justify-between items-center gap-3 w-full'>
-                    <div>
-                        <Image src={whatsapp} width={40} alt='Image' />
-                    </div>
-                    <div className='text-xs'>
-                        Share booking and trip details on WhatsApp
-                    </div>
-                    <div>
-                        <Switch />
-                    </div>
-                </div>
             </div>
             <div className='border-2 border-slate-300 w-[95%] m-auto mt-2 rounded-lg shadow-xl p-2'>
                 <div className='text-xl font-bold'>
                     Passanger Details
                 </div>
-                <div className='w-full flex text-sm'>
-                    <input className='w-1/2' type="text" placeholder='Full Name' />
-                    <input className='w-1/3' type="text" placeholder='Age' />
-                    <select
-                        id="gender"
-                        name="gender"
-                        className="w-1/3 appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    >
-                        <option value="">Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
+                <>
+                    {bookingSleepers.map((seat, index) => (
+                        <div key={index} className="flex px-5 py-2 justify-between items-center gap-2">
+                            <input
+                                className="border-2 w-[45%] py-2 px-3 rounded-lg"
+                                type="text"
+                                placeholder="Full Name"
+                                required
+                                onChange={(e) => handleChange(index, 'fullName', e.target.value)}
+                            />
+                            <input
+                                className="border-2 py-2 px-3 w-[10%] rounded-lg"
+                                type="text"
+                                placeholder="Age"
+                                required
+                                // value={formData[index].age}
+                                onChange={(e) => handleChange(index, 'age', e.target.value)}
+                            />
+                            <select
+                                id="gender"
+                                name="gender"
+                                className="border-2 cursor-pointer w-[35%] appearance-none rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                                // value={formData[index].gender}
+                                onChange={(e) => handleChange(index, 'gender', e.target.value)}
+                            >
+                                <option value="">Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    ))}
+                </>
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
     <div className="h-full">
-      <MbBody />
+      {/* <MbBody /> */}
       <LpBody />
     </div>
   );

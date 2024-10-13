@@ -68,17 +68,12 @@ const MbStart = () => {
         setDay(alldays[days[n]])
         setYear(years[n])
 
-        // setNextdate(dates[n])
-        // setNextmonth(allMonths[months[n]])
-        // setNextday(alldays[days[n]])
-        // setNextyear(years[n])
-
         shading(n);
     }
 
     return (
         <div >
-            <div className='m-4 mt-10 rounded-md border-2 border-slate-300' >
+            <div className='rounded-md border-2 border-slate-300' >
                 <div className=' flex justify-between p-2 border-b-2 shadow-sm'>
                     <div>
                         <h1 className='text-blue-600 text-3xl font-bold'>VOLVO AC</h1>
@@ -86,74 +81,69 @@ const MbStart = () => {
                     </div>
                     <div>
                         <p className='text-sm '>Starting At</p>
-                        <h1 className='text-center text-3xl font-bold'>₹ 707</h1>
+                        <h1 className='text-center text-3xl font-bold'>₹ 700</h1>
                     </div>
-                </div>
-                <div className='flex justify-between px-3 text-2xl mt-2'>
-                    <div className='font-semibold'>Chandigarh</div>
-                    <div className='text-sm flex items-center'>--8hr--</div>
-                    <div className='font-semibold'>Jammu</div>
                 </div>
                 <div className='p-3'>
                     <div className='w-full text-xl'>
-                        <div>
-                            Select pick up point
+                        <div className=' text-base'>
+                            <b>CHANDIGARH</b>(Pick Up)
                         </div>
                         <div className='overflow-hidden w-full flex justify-start border-2 items-center rounded-xl'>
                             <DropdownMenu >
-                                <div className='flex justify-between items-center text-base p-2 w-full'>
-                                    <div >
-                                        {pick}
-                                    </div>
-                                    <DropdownMenuTrigger>
-                                        <div>
-                                            <KeyboardDoubleArrowDownIcon />
+                                <DropdownMenuTrigger>
+                                    <div className=' flex justify-between items-center text-base p-2 w-full '>
+                                        <div className={`text-base w-full text-left ${pick === "Departure Location..." ? "text-slate-400 " : "text-black "}? `}>
+                                            {pick}
                                         </div>
-                                    </DropdownMenuTrigger>
-                                </div>
-                                <DropdownMenuContent className='w-full'>
-                                    <DropdownMenuItem >
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 22B Chandiagrh")}>Sector 22B Chandiagrh</div>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Place 2")}>Place 2</div>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Place 3")}>Place 3</div>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
+                                        <DropdownMenuContent className='w-full'>
+                                            <DropdownMenuItem >
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full text-slate-400' onClick={() => setPick("Departure Location...")}>Departure Location...</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem >
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 22B Chandiagrh")}>Sector 22B Chandiagrh</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Manimajra")}>Manimajra</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 25")}>Sector 25</div>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </div>
+                                </DropdownMenuTrigger>
                             </DropdownMenu>
                         </div>
                     </div>
                 </div>
                 <div className='px-3'>
                     <div className='w-full text-xl'>
-                        <div>
-                            Select drop off point
+                        <div className='text-base'>
+                            <b>JAMMU</b>(Drop Off)
                         </div>
                         <div className='overflow-hidden w-full flex justify-start border-2 items-center rounded-xl'>
                             <DropdownMenu >
-                                <div className='flex justify-between items-center text-base p-2 w-full'>
-                                    <div >
-                                        {drop}
-                                    </div>
-                                    <DropdownMenuTrigger>
-                                        <div>
-                                            <KeyboardDoubleArrowDownIcon />
+                                <DropdownMenuTrigger>
+                                    <div className='flex justify-between items-center text-base p-2 w-full'>
+                                        <div className={`text-base w-full text-left ${drop === "Arival Location..." ? "text-slate-400" : "text-black"} `}>
+                                            {drop}
                                         </div>
-                                    </DropdownMenuTrigger>
-                                </div>
-                                <DropdownMenuContent>
-                                    <DropdownMenuItem>
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 1")}>Place 1</div>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 2")}>Place 2</div>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 3")}>Place 3</div>
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
+                                        <DropdownMenuContent className='w-full'>
+                                            <DropdownMenuItem >
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full text-slate-400' onClick={() => setDrop("Arival Location...")}>Arival Location...</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem >
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Somewhere in Jammu")}>Somewhere in Jammu</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 2")}>Place 2</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 3")}>Place 3</div>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </div>
+                                </DropdownMenuTrigger>
                             </DropdownMenu>
                         </div>
                     </div>
@@ -192,26 +182,7 @@ const MbStart = () => {
                                     {alldays[days[2]]}
                                 </div>
                             </div>
-                            <div className='flex flex-col justify-center items-center cursor-pointer'>
-                                <div className={'rounded-3xl w-10 h-10  flex flex-col justify-center items-center text-xl'} onClick={() => handleClick(3)}>
-                                    <div className={shade[3] === true ? "bg-yellow-500 w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
-                                        {dates[3]}
-                                    </div>
-                                </div>
-                                <div>
-                                    {alldays[days[3]]}
-                                </div>
-                            </div>
-                            <div className='flex flex-col justify-center items-center cursor-pointer'>
-                                <div className={'rounded-3xl w-10 h-10  flex flex-col justify-center items-center text-xl'} onClick={() => handleClick(4)}>
-                                    <div className={shade[4] === true ? "bg-yellow-500 w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
-                                        {dates[4]}
-                                    </div>
-                                </div>
-                                <div>
-                                    {alldays[days[4]]}
-                                </div>
-                            </div>
+
                         </div>
                         <div className='w-28 flex justify-end items-center px-2'>
                             <div className='text-2xl font-semibold '>
@@ -222,19 +193,7 @@ const MbStart = () => {
                 </div>
                 <div className='w-full flex justify-center items-center'>
                     <Link href={{
-                        pathname: '/booking',
-                        query: {
-                            date: date,
-                            day: day,
-                            month: month,
-                            year: year,
-                            nextdate: nextdate,
-                            nextday: nextday,
-                            nextmonth: nextmonth,
-                            nextyear: nextyear,
-                            pickfrom: pick,
-                            dropto: drop
-                        }
+                        pathname: '/booking'
                     }}>
                         <button className='py-3 px-12 m-3 mb-4 bg-blue-600 rounded-xl text-xl font-semibold cursor-pointer transition-transform ease-in-out duration-200 transform hover:scale-110'>
                             Continue

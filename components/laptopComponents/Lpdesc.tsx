@@ -9,7 +9,7 @@ interface LpdescProps {
 const Lpdesc = ({scrollToTarget}:LpdescProps) => {
 
     return (
-        <div className="flex">
+        <div className="hidden lg:flex">
             <div className="flex flex-col items-center w-1/3 p-6 ml-8 mt-10">
                 <div >
                     <div className="flex text-7xl font-semibold text-yellow-500">
@@ -26,11 +26,9 @@ const Lpdesc = ({scrollToTarget}:LpdescProps) => {
                     <button onClick={scrollToTarget} className= " bg-yellow-500 p-5 px-10 text-lg font-bold rounded-xl text-blueGray-800 transition-transform ease-in-out duration-200 transform border-0 hover:scale-110">BOOK NOW</button>
                 </div>
             </div>
-            {/* <div className="justify-center flex items-center"> */}
                 <div className="">
                     <Image src={busIamge} alt="Image" width={900} height={600}/>
                 </div>
-            {/* </div> */}
         </div>
     )
 }

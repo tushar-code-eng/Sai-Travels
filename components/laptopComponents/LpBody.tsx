@@ -19,7 +19,7 @@ const LpBody = () => {
   }
 
   return (
-    <div className='hidden sm:block'>
+    <div className='sm:block'>
       <Lpdesc scrollToTarget={scrollToTarget} />
       <LpStart targetRef={targetRef} />
     </div>
