@@ -1,33 +1,24 @@
-"use client"
+"use client";
 
 import Footer from "@/components/server/footer";
 import Navbar from "@/components/server/navbar";
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
 
-
 const layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className=" w-full bg-gradient-to-b from-white to-blue-100 min-h-screen flex flex-col">
+      <RecoilRoot>
+        <Navbar />
 
-    const [isPageLoaded, setIsPageLoaded] = useState(false);
+        <main className="flex-grow">{children}</main>
 
-    useEffect(() => {
-        setIsPageLoaded(true);
-    }, []);
+        <Footer />
 
-    return (
-        <div className="h-full w-full bg-gradient-to-b from-white to-blue-100">
-            <RecoilRoot>
-                <main>
-                    <Navbar />
-                    {children}
-                    {isPageLoaded && <Footer />}
-                </main>
+        <Toaster />
+      </RecoilRoot>
+    </div>
+  );
+};
 
-                <Toaster />
-            </RecoilRoot>
-        </div>
-    )
-}
-
-export default layout
+export default layout;
