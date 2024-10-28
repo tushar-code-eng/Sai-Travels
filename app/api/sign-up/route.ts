@@ -65,21 +65,21 @@ export async function POST(request: Request) {
         }
 
         // Send verification email
-        const emailResponse = await sendVerificationEmail(
-            email,
-            fullName,
-            verifyCode
-        );
+        // const emailResponse = await sendVerificationEmail(
+        //     email,
+        //     fullName,
+        //     verifyCode
+        // );
 
-        if (!emailResponse.success) {
-            return Response.json(
-                {
-                    success: false,
-                    message: emailResponse.message,
-                },
-                { status: 500 }
-            );
-        }
+        // if (!emailResponse.success) {
+        //     return Response.json(
+        //         {
+        //             success: false,
+        //             message: emailResponse.message,
+        //         },
+        //         { status: 500 }
+        //     );
+        // }
 
 
         return Response.json(

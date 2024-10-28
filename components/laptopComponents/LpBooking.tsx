@@ -49,6 +49,7 @@ const LpBooking = () => {
             try {
                 const res = await axios.get('/api/get-sleeper')
                 const All = res.data
+                console.log(All)
                 setAllSleepers(All)
                 setLowerSingle(All.slice(0, 6))
                 setLowerDouble(All.slice(6, 12))
@@ -60,7 +61,7 @@ const LpBooking = () => {
             }
         }
         fetchSleepers()
-    }, [])
+    })
 
     const date = useRecoilValue(DateAtom)
     const month = useRecoilValue(MonthAtom)
@@ -115,8 +116,6 @@ const LpBooking = () => {
         } else {
             if (timeoutId) {
                 clearTimeout(timeoutId)
-                // console.log('i need to clear')
-                // console.log(timeoutId)
             } else {
                 console.log('didnt worked')
             }

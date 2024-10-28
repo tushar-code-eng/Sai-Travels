@@ -58,7 +58,7 @@ const Navbar = () => {
                 </DialogTitle>
                 <DialogDescription>
                   <div className="text-base">
-                    We're here to help! If you have any questions, feedback, or need assistance, please don't hesitate to reach out.
+                    We&apos;re here to help! If you have any questions, feedback, or need assistance, please don&apos;t hesitate to reach out.
                   </div>
                 </DialogDescription>
               </DialogHeader>
@@ -124,7 +124,7 @@ const Navbar = () => {
                 <div>
                   <div className="text-sm">
                     <ul >
-                      Customer Satisfaction: We prioritize our passengers' comfort and safety above all else.
+                      Customer Satisfaction: We prioritize our passenger&apos;s comfort and safety above all else.
                     </ul>
                     <ul>
                       Reliability: We are committed to providing punctual and dependable services.

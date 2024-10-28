@@ -2,6 +2,8 @@ import { atom, selector } from "recoil"
 
 import { useSession } from 'next-auth/react'
 
+const { data: session } = useSession()
+
 export const passangerNamesAtom = atom({
     key: "passangerNamesAtom",
     default: [{ fullName: "", age: "", gender: "" }]
@@ -11,11 +13,10 @@ export const passangerNamesAtom = atom({
 export const contactSelector = selector({
     key: 'contactSelector',
     get: async () => {
-        const { data: session } = useSession()
         if (session && session.user) {
             return {
                 email: session.user.email || '',
-                phone: session.user.phone || '', // Ensure that the session includes phone
+                phone: session.user.phone || '', 
             };
         }
         return { email: '', phone: '' };

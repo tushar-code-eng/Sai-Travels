@@ -1,29 +1,34 @@
 import mongoose from "mongoose";
 
 type ConnectionObject = {
-    isConnected?: Number
+    isConnected?: number;
 }
 
 const connection: ConnectionObject = {}
 
-const dbConnection = async (): Promise<void> =>{
-    if(connection.isConnected){
-        console.log("DB already connected")
-        return 
+const dbConnection = async (): Promise<void> => {
+    if (process.env.NODE_ENV === 'production' && process.env.NEXT_PHASE === 'phase-production-build') {
+        console.log("Skipping DB connection during build");
+        return;
     }
-    try{
-        const db = await mongoose.connect(process.env.MONGO_URI || "",{})
 
-        connection.isConnected = db.connections[0].readyState
+    if (connection.isConnected) {
+        console.log("DB already connected");
+        return;
+    }
 
-        console.log("DB connection successfull")
-    }catch(error){
+    if (!process.env.MONGO_URI) {
+        console.log("MONGO_URI is not defined");
+        return;
+    }
 
-        console.log("DB connection failed")
-
-        process.exit(1)
-
+    try {
+        const db = await mongoose.connect(process.env.MONGO_URI, {});
+        connection.isConnected = db.connections[0].readyState;
+        console.log("DB connection successful");
+    } catch (error) {
+        console.log("DB connection failed", error);
     }
 }
 
-export default dbConnection
+export default dbConnection;

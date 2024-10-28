@@ -8,13 +8,6 @@ const ProtectionRoute = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
-    // Get query parameters
-    const date = searchParams.get("date");
-    const numberOfPassengers = searchParams.get("number");
-    const totalPrice = searchParams.get("Price");
-    const pickupLocation = searchParams.get("pickfrom");
-    const dropoffLocation = searchParams.get("dropto");
-
     useEffect(() => {
         if (status === 'loading') {
             return;
@@ -24,7 +17,7 @@ const ProtectionRoute = ({ children }: { children: React.ReactNode }) => {
             const redirectUrl = `/sign-in?redirected=true`;
             router.push(redirectUrl);
         }
-    }, [session, status, pathname, numberOfPassengers, date, pickupLocation, dropoffLocation, totalPrice, router]);
+    });
 
     if (status === 'loading') {
         return <div>Loading...</div>;

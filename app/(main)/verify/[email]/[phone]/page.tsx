@@ -127,7 +127,7 @@ export default function VerifyAccount() {
                                 value={digit}
                                 onChange={(e) => handleChangeEmail(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDownEmail(index, e)}
-                                ref={(el) => (inputRefs.current[index] = el)}
+                                // ref={(el) => (inputRefs.current[index] = el)}
                                 className="w-12 h-12 border border-gray-300 rounded-lg text-center text-2xl"
                             />
                             <div className='mt-3'>

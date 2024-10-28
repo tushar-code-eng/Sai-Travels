@@ -57,7 +57,7 @@ const TotalAmountMb = () => {
                 </div>
                 <div className='mt-2 py-2 px-4 w-full rounded-xl ' >
                     {sl.map((index, i) => (
-                        <div className='flex justify-between'>
+                        <div key={i} className='flex justify-between'>
                             <div>
                                 {select[index] && index}
                             </div>

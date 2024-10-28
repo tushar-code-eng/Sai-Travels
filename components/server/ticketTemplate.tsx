@@ -79,7 +79,8 @@ const TicketTemplate = ({ ticketDetails }:any) => (
     <Page size="A6" style={styles.page}>
       <View style={styles.ticket}>
         <View style={styles.header}>
-          <Image
+          <img
+            alt="img"
             style={styles.logo}
             src="/api/placeholder/40/40"
           />

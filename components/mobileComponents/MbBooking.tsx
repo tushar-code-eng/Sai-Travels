@@ -54,7 +54,7 @@ const MbBooking = () => {
             }
         }
         fetchSleepers()
-    }, [])
+    })
 
     const date = useRecoilValue(DateAtom)
     const month = useRecoilValue(MonthAtom)

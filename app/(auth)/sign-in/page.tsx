@@ -10,6 +10,8 @@ import { toast, useToast } from '@/components/ui/use-toast';
 import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/logo.png'
 import Image from 'next/image';
+import { Suspense } from 'react';
+
 
 
 const schema = z.object({
@@ -21,12 +23,14 @@ type FormData = z.infer<typeof schema>;
 
 const SignIn = () => {
   const { toast } = useToast();
-  const searchParams = useSearchParams();
+
+  // const searchParams = useSearchParams();
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const getInfoOfRedirection = searchParams.get("redirected");
-  const getUrl = searchParams.get("urlfrom");
+  // const getInfoOfRedirection = searchParams.get("redirected");
+  // const getUrl = searchParams.get("urlfrom");
 
   const {
     register,
@@ -36,14 +40,14 @@ const SignIn = () => {
     resolver: zodResolver(schema),
   });
 
-  useEffect(() => {
-    if (getInfoOfRedirection === "true") {
-      toast({
-        title: "Sign In",
-        description: "Sign in to continue",
-      });
-    }
-  }, [getInfoOfRedirection, toast]);
+  // useEffect(() => {
+  //   if (getInfoOfRedirection === "true") {
+  //     toast({
+  //       title: "Sign In",
+  //       description: "Sign in to continue",
+  //     });
+  //   }
+  // }, [getInfoOfRedirection, toast]);
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
@@ -71,9 +75,10 @@ const SignIn = () => {
           variant: 'destructive',
         });
       }
-    } else if (result?.url) {
-      router.replace(getInfoOfRedirection === "true" && getUrl ? getUrl : '/');
     }
+    //  else if (result?.url) {
+    //   router.replace(getInfoOfRedirection === "true" && getUrl ? getUrl : '/');
+    // }
   };
 
   return (
@@ -119,9 +124,9 @@ const SignIn = () => {
 
         <div className="mt-6">
           <Button
-            onClick={() => signIn('google', {
-              callbackUrl: getInfoOfRedirection === "true" ? getUrl || '/' : '/',
-            })}
+            onClick={() => signIn('google'
+              // { callbackUrl: getInfoOfRedirection === "true" ? getUrl || '/' : '/',}
+              )}
             className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
           >
             Sign in with Google

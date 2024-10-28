@@ -14,7 +14,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import TicketTemplate from '@/components/server/ticketTemplate'
 
-const page = ({ searchParams: { amount }, }: { searchParams: { amount: string } }) => {
+const Page = ({ searchParams: { amount }, }: { searchParams: { amount: string } }) => {
 
     const router = useRouter()
 
@@ -80,4 +80,4 @@ const page = ({ searchParams: { amount }, }: { searchParams: { amount: string } 
     );
 }
 
-export default page
+export default Page

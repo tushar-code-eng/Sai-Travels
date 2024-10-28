@@ -64,7 +64,7 @@ const LpPassangerDetails = () => {
             setBookingSleepers(realdata)
         }
         fetchDetails()
-    }, [])
+    })
 
 
     const handleChange = (index: number, field: string, value: string) => {

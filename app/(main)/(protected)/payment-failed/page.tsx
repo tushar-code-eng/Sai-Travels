@@ -11,7 +11,7 @@ import Image from 'next/image';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useRouter } from 'next/navigation'
 
-const page = ({ searchParams: { amount }, }: { searchParams: { amount: string } }) => {
+const Page = ({ searchParams: { amount }, }: { searchParams: { amount: string } }) => {
 
     const router = useRouter()
 
@@ -34,4 +34,4 @@ const page = ({ searchParams: { amount }, }: { searchParams: { amount: string } 
     );
 }
 
-export default page
+export default Page

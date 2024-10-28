@@ -9,7 +9,7 @@ import axios from "axios";
 import { headers } from "next/headers";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Loader2 } from "lucide-react";
+// import { Loader2 } from "lucide-react";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 
 interface checkOutProps {
@@ -46,7 +46,7 @@ const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
     };
 
     if (!stripe || !clientSecret || !elements) {
-        return <Loader2 />
+        // return <Loader2 />
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
