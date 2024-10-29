@@ -1,7 +1,7 @@
-import { ConfirmationResult } from "firebase/auth"
+
 import {atom,selector} from "recoil"
 
-export const confirmationResultAtom = atom<ConfirmationResult | null>({
+export const confirmationResultAtom = atom({
     key:"confirmationResult",
     default:null
 })

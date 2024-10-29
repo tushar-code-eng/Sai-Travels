@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -24,6 +23,11 @@ import { Separator } from '@radix-ui/react-dropdown-menu';
 import { useRecoilValue } from 'recoil';
 import { confirmationResultAtom } from '@/app/(Recoil)/(atom)/confirmationResult';
 
+// Add this type definition
+type ConfirmationResult = {
+    confirm: (verificationCode: string) => Promise<any>;
+}
+
 export default function VerifyAccount() {
     const router = useRouter();
     const params = useParams<{ email: string, phone: string }>();
@@ -35,7 +39,7 @@ export default function VerifyAccount() {
 
     const [resendCountDown, setResendCountDown] = useState(0)
 
-    const confirmationResult = useRecoilValue(confirmationResultAtom)
+    const confirmationResult = useRecoilValue<ConfirmationResult | null>(confirmationResultAtom)
 
     useEffect(() => {
         let timer: NodeJS.Timeout
@@ -81,8 +85,12 @@ export default function VerifyAccount() {
         const verificationCodeEmail = code.join('');
         const verificationCodePhone = otp.join('');
         try {
-            await confirmationResult?.confirm(verificationCodePhone)
-            setOtp(Array(6).fill(''))
+            if (!confirmationResult) {
+                throw new Error('No confirmation result available');
+            }
+            
+            await confirmationResult.confirm(verificationCodePhone);
+            setOtp(Array(6).fill(''));
 
             const Emailresponse = await axios.post<ApiResponse>(`/api/verify-code`, {
                 email: params.email,
@@ -90,7 +98,7 @@ export default function VerifyAccount() {
                 code: verificationCodeEmail,
             });
 
-            await confirmationResult?.confirm(verificationCodePhone)
+            await confirmationResult.confirm(verificationCodePhone);
 
             toast({
                 title: 'Success',

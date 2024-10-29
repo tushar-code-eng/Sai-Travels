@@ -14,20 +14,11 @@ import { ApiResponse } from '@/types/ApiResponse';
 import { useDebounceCallback } from 'usehooks-ts';
 import { Loader2 } from 'lucide-react';
 
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { app } from '../../config'
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
-import { confirmationResultAtom } from '@/app/(Recoil)/(atom)/confirmationResult';
-import { useRecoilState } from 'recoil';
 import { Button } from '@/components/ui/button';
 
 import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/logo.png'
 import Image from 'next/image';
-
-
 
 // Define validation schema using Zod
 const schema = z.object({
@@ -49,10 +40,6 @@ const SignUp = () => {
     const [isCheckingEmail, setIsCheckingEmail] = useState(false)
     const [emailMessage, setEmailMessage] = useState('')
     const debounceedEmail = useDebounceCallback(setEmails, 1000)
-
-    const [confirmationResult, setConfirmationResult] = useRecoilState(confirmationResultAtom)
-    const auth = getAuth(app)
-    const [otpSent, setotpSent] = useState(false)
 
     const router = useRouter();
 

@@ -2,8 +2,7 @@
 import dbConnection from '@/lib/dbConnection';
 import UserModel from '@/models/User';
 import bcrypt from 'bcryptjs'
-import { sendVerificationEmail } from '@/helpers/sendVerificationEmail';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
 
 export async function POST(request: Request) {
     await dbConnection();
