@@ -8,7 +8,6 @@ const LpBody = () => {
   const targetRef = useRef<HTMLDivElement>(null)
 
   const scrollToTarget = () => {
-    console.log('wow')
     if (targetRef.current) {
       const yPos = targetRef.current.offsetTop - 100;
       window.scrollTo({

@@ -1,11 +1,9 @@
 import { NextAuthOptions } from "next-auth"
-import NextAuth from "next-auth/next"
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials';
 import dbConnection from "@/lib/dbConnection";
 import UserModel from "@/models/User";
 import bcrypt from 'bcryptjs'
-import axios from "axios";
 
 export const authOptions: NextAuthOptions = {
     providers: [

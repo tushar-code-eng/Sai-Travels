@@ -1,7 +1,10 @@
+export const dynamic = 'force-dynamic'
+
 import dbConnection from "@/lib/dbConnection";
 import SleeperModel from "@/models/Sleeper";
 
 export async function GET(req: Request) {
+    console.log("hitting the api")
     await dbConnection()
     try {
         const AllSleepers = await SleeperModel.find()
@@ -10,7 +13,7 @@ export async function GET(req: Request) {
     } catch (err) {
         return Response.json(
             {
-                success:true,
+                success:false,
                 message:"Error in fetching sleeper details"
             }
 

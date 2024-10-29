@@ -23,14 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <NextAuthProvider>
-      {/* <ToastProvider> */}
         <html lang="en">
           <body className={inter.className}>
             {children}
             <Toaster />
           </body>
         </html>
-      {/* </ToastProvider> */}
     </NextAuthProvider>
   );
 }
