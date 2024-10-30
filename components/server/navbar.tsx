@@ -1,7 +1,6 @@
-
 "use client"
 
-import LOGO from "@/public/logo.png"
+import LOGO from "@/public/IMG_0863.png"
 import Image from 'next/image';
 
 import { signOut, useSession, } from "next-auth/react";
@@ -10,7 +9,6 @@ import Link from "next/link";
 
 import { useRouter } from 'next/navigation';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { Loader2 } from "lucide-react";
 
 import { useState } from "react";
 
@@ -27,13 +25,6 @@ import {
 const Navbar = () => {
 
   const { data: session, status } = useSession();
-  console.log(session)
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const myloader = () => {
-    return "loading..."
-  }
 
   const router = useRouter()
 
@@ -42,15 +33,22 @@ const Navbar = () => {
   }
 
   return (
-    <div className=" flex items-center justify-between sm:p-1 bg-white text-black sticky top-0 z-10 sm:border-b-2 border-b-4 shadow-sm">
-      <div className='cursor-pointer sm:w-20 w-24 items-start justify-start' onClick={() => handleClick()}>
-        <Image src={LOGO} alt='LOGO' />
+    <div className="m-auto flex items-center justify-between sm:p-1 bg-white text-black sticky top-1 z-10 shadow-sm w-4/5 rounded-lg ">
+      <div className='flex cursor-pointer sm:w-20 m-4 justify-center items-center' onClick={() => handleClick()}>
+        <Image src={LOGO} alt="LOGO" />
+        <div className="flex">
+          <span className="mr-1">SAI</span>
+          <span>TRAVELS</span>
+        </div>
       </div>
-      <div className="flex justify-center items-center gap-10">
+      <div className="flex justify-center items-center gap-20">
         <div >
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" className="roundede-md">Contact</Button>
+              <Button variant="outline" className="rounded-md relative overflow-hidden transition-colors duration-500 ease-in-out group">
+                <span className="relative z-10">Contact</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] transform -translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0"></span>
+              </Button>
             </DialogTrigger>
             <DialogContent className="md:w-[700px] w-[90%] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
@@ -86,7 +84,10 @@ const Navbar = () => {
         <div >
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline" className="roundede-md">About Us</Button>
+              <Button variant="outline" className="rounded-md relative overflow-hidden transition-colors duration-500 ease-in-out group">
+                <span className="relative z-10">About Us</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] transform -translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0"></span>
+              </Button>
             </DialogTrigger>
             <DialogContent className="md:w-[700px] w-[90%] max-h-[80vh] overflow-y-auto">
               <DialogHeader>
@@ -146,49 +147,56 @@ const Navbar = () => {
           </Dialog>
 
         </div>
-        <div>
-          {status === 'authenticated' ? (
-            <div className="flex items-center space-x-4 px-4 py-1 mx-auto">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="cursor-pointer outline-none">
-                  <div className="WOW text-lg font-semibold">
-                    {session?.user?.image ? (
-                      <img
-                        src={session.user.image}
-                        alt={session.user.name || 'Profile Picture'}
-                        className="w-12 h-12 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                        {session?.user?.fullName ? session.user.fullName.charAt(0).toUpperCase() : '?'}
-                      </div>
-                    )}
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="absolute right-0">
-                  <DropdownMenuItem>
-                    <div>{session?.user?.name}</div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <div>{session?.user?.email}</div>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Button
-                      onClick={() => signOut()}
-                      className="py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700"
-                    >
-                      Sign Out
-                    </Button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          ) : <Button asChild>
-            <Link href="/sign-in">SignIn</Link>
-          </Button>}
-        </div>
       </div>
+      <div>
+        {status === 'authenticated' ? (
+          <div className="flex items-center space-x-4 px-4 py-1 mx-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="cursor-pointer outline-none">
+                <div className="WOW text-lg font-semibold">
+                  {session?.user?.image ? (
+                    <img
+                      src={session.user.image}
+                      alt={session.user.name || 'Profile Picture'}
+                      className="w-12 h-12 rounded-full"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
+                      {session?.user?.fullName ? session.user.fullName.charAt(0).toUpperCase() : '?'}
+                    </div>
+                  )}
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="absolute right-0">
+                <DropdownMenuItem>
+                  <div>{session?.user?.name}</div>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <div>{session?.user?.email}</div>
+                </DropdownMenuItem>
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[1px] w-full" />
+                <DropdownMenuItem>
+                  <Button
+                    onClick={() => signOut()}
+                    className="py-2 px-4 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-center"
+                  >
+                    Sign Out
+                  </Button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : <div className="flex gap-4">
+
+          <Button className="text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
+          <Button asChild className="bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] font-bold text-base hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+            <Link href="/sign-up">Sign Up</Link>
+          </Button>
+        </div>}
+      </div>
+
     </div>
   )
 }

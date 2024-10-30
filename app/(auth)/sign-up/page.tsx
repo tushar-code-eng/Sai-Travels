@@ -133,13 +133,7 @@ const SignUp = () => {
         console.log('working')
 
         try {
-            // const phoneForOtp = "+91" + data.phone
-            // console.log(phoneForOtp)
-            // console.log(window.recaptchaVerifier)
-            // console.log(auth)
-            // const confirmation = await signInWithPhoneNumber(auth, phoneForOtp, window.recaptchaVerifier)
-            // setConfirmationResult(confirmation)
-            // console.log('otp sent')
+
 
             const res = await axios.post('/api/sign-up', data)
 
@@ -252,6 +246,8 @@ const SignUp = () => {
                         </Button>
                     </div>
                 </form>
+
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
                 <div className="mt-6">
                     <Button

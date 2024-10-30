@@ -1,19 +1,10 @@
 "use client"
-import { passangerNamesAtom } from '@/app/(Recoil)/(atom)/passangerNames'
-import { bookingSleeperAtom } from '@/app/(Recoil)/(atom)/setBookingSleepers'
+
 import { Button } from '@/components/ui/button'
-import axios from 'axios'
-import { useSession } from 'next-auth/react'
-import React, { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import whatsapp from "@/public/whatsapp.png"
-import Image from 'next/image';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useRouter } from 'next/navigation'
+
+import React from 'react'
 
 const Page = ({ searchParams: { amount }, }: { searchParams: { amount: string } }) => {
-
-    const router = useRouter()
 
     return (
         <div className="max-w-6xl h-[52vh] mx-auto p-10 bg-white text-center border m-10 rounded-md">

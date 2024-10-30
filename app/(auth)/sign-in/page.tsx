@@ -11,6 +11,11 @@ import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/logo.png'
 import Image from 'next/image';
 
+import React from "react";
+
+import { cn } from "@/lib/utils";
+
+
 const schema = z.object({
   email: z.string().nonempty('Email is required'),
   password: z.string().nonempty('Password is required'),
@@ -44,7 +49,7 @@ const SignInForm = () => {
     }
   }, [getInfoOfRedirection, toast]);
 
-  const onSubmit = async (data: FormData) => {
+  const handleOnSubmit = async (data: FormData) => {
     setLoading(true);
     console.log(data)
     const result = await signIn('credentials', {
@@ -71,10 +76,14 @@ const SignInForm = () => {
         });
       }
     }
-     else if (result?.url) {
+    else if (result?.url) {
       router.replace(getInfoOfRedirection === "true" && getUrl ? getUrl : '/');
     }
   };
+
+  const su = () => {
+
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -83,7 +92,7 @@ const SignInForm = () => {
           <Image className='w-20 m-[-10px]' src={logo} alt='Logo' />
         </div>
         <div className="text-2xl font-bold text-center mb-6">Sign In</div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(handleOnSubmit)} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -117,11 +126,13 @@ const SignInForm = () => {
           </div>
         </form>
 
+        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+
         <div className="mt-6">
           <Button
             onClick={() => signIn('google',
-              { callbackUrl: getInfoOfRedirection === "true" ? getUrl || '/' : '/',}
-              )}
+              { callbackUrl: getInfoOfRedirection === "true" ? getUrl || '/' : '/', }
+            )}
             className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
           >
             Sign in with Google
@@ -133,6 +144,7 @@ const SignInForm = () => {
         </div>
       </div>
     </div>
+
   );
 };
 
@@ -150,3 +162,28 @@ const SignIn = () => {
 };
 
 export default SignIn;
+
+
+const LabelInputContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div className={cn("flex flex-col space-y-2 w-full", className)}>
+      {children}
+    </div>
+  );
+};
+
+
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-[2px] w-3/4 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
