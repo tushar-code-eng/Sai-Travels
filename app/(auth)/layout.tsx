@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="h-full w-full bg-gradient-to-b from-white to-blue-100">
+        <div className="h-full w-full">
             <RecoilRoot>
                 <main>
                     {children}

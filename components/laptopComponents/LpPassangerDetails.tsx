@@ -1,4 +1,3 @@
-
 "use client"
 
 import { SleeperInterface } from '@/models/Sleeper'
@@ -65,7 +64,7 @@ const LpPassangerDetails = () => {
             setBookingSleepers(realdata)
         }
         fetchDetails()
-    },[])
+    }, [])
 
 
     const handleChange = (index: number, field: string, value: string) => {
@@ -126,14 +125,14 @@ const LpPassangerDetails = () => {
                                 {bookingSleepers.map((seat, index) => (
                                     <div key={index} className="flex px-5 py-2 justify-between items-center gap-2">
                                         <input
-                                            className="border-2 w-[45%] py-2 px-3 rounded-lg"
+                                            className="border-2 py-2 px-3 rounded-lg"
                                             type="text"
                                             placeholder="Full Name"
                                             required
                                             onChange={(e) => handleChange(index, 'fullName', e.target.value)}
                                         />
                                         <input
-                                            className="border-2 py-2 px-3 w-[10%] rounded-lg"
+                                            className="border-2 py-2 px-3 rounded-lg min-w-14"
                                             type="text"
                                             placeholder="Age"
                                             required
@@ -143,7 +142,7 @@ const LpPassangerDetails = () => {
                                         <select
                                             id="gender"
                                             name="gender"
-                                            className="border-2 cursor-pointer w-[35%] appearance-none rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="border-2 cursor-pointer appearance-none rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             required
                                             // value={formData[index].gender}
                                             onChange={(e) => handleChange(index, 'gender', e.target.value)}
@@ -162,7 +161,7 @@ const LpPassangerDetails = () => {
 
 
                     <div className="w-full rounded-lg flex justify-between">
-                        <div className=' bg-white w-1/2 m-4 shadow-lg rounded-lg p-3 mr-8'>
+                        <div className=' bg-white w-1/2 m-4 shadow-lg rounded-lg p-3    '>
                             <div className="px-4 py-2 text-center text-xl font-semibold">
                                 Booking Details
                             </div>
@@ -203,22 +202,25 @@ const LpPassangerDetails = () => {
                                 {/* </div> */}
                             </div>
                         </div>
-                        <div className='  w-1/2 mt-5 mr-4 rounded-lg' >
-                            <div className="shadow-lg h-1/2 bg-white">
-                                <div className="px-4 py-2 text-center text-xl mt-1  font-semibold bg-white">
+                        <div className='w-1/2 mt-5 mr-4 rounded-lg' >
+                            <div className="shadow-lg bg-white">
+                                <div className="px-4 py-2 text-center text-xl mt-1 font-semibold bg-white">
                                     Contact Details
                                 </div>
-                                <div className="w-full flex justify-items-start items-center px-5 py-2 gap-2">
-                                    <div className="border-2 w-[8%] py-2 px-3 rounded-lg">+91</div>
-                                    <input required className="border-2 w-[40%] py-2 px-3 rounded-lg" type="text" value={session?.user.phoneNo} onChange={(e) => { setContactPhone(e.target.value) }} />
-                                    <input required className="border-2 w-[52%] py-2 px-3 rounded-lg" type="email" value={session?.user.email} onChange={(e) => { setContactEmail(e.target.value) }} />
+                                <div className="w-full justify-items-start items-center px-5 py-2">
+                                    <div className='flex gap-2 items-center justify-start'>
+                                        <div>Phone No.</div>
+                                        <div className="border-2 py-2 px-3 rounded-lg">+91</div>
+                                        <input defaultValue={session?.user.phone} required className="border-2 py-2 px-3 rounded-lg" type="text" value={session?.user.phoneNo} onChange={(e) => { setContactPhone(e.target.value) }} />
+                                    </div>
+                                    <div className='flex gap-2 items-center justify-start' >
+                                        <div>Email -</div>
+                                        <input defaultValue={session?.user.email} required className="my-3 border-2 min-w-4 py-2 px-3 rounded-lg bg-gray-200 cursor-not-allowed" type="email" value={session?.user.email} disabled />
+                                    </div>
                                 </div>
                             </div>
                             <div className="flex justify-center items-center ">
-                                <Button className="px-6 w-1/2 mx-2 py-3 font-semibold text-blue-500 bg-white border-blue-400 border-2 rounded-lg mt-8">
-                                    Back
-                                </Button>
-                                <Button type='submit' className="px-6 w-1/2 mx-2 py-3 font-semibold text-white bg-blue-500 rounded-lg mt-8">
+                                <Button type='submit' className="px-6 w-1/2 mx-2 py-3 font-semibold text-white bg-gradient-to-tr from-blue-900 to-indigo0-500 rounded-lg mt-8">
                                     Proceed To payment
                                 </Button>
                             </div>

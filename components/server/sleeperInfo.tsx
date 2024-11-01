@@ -25,7 +25,7 @@ const SleeperInfo = () => {
                 </div>
                 <div className="flex justify-between items-center h-24">
                     <div>Already Booked</div>
-                    <div className=" flex justify-center w-11 h-16 bg-slate-400 rounded-lg"></div>
+                    <div className=" flex justify-center w-11 h-16 bg-slate-400 pointer-events-none rounded-lg"></div>
                 </div>
             </div>
         </div>

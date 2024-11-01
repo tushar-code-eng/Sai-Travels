@@ -13,6 +13,12 @@ import { AllSleepersAtom, LowerDoubleAtom, LowerSingleAtom, UpperDoubleAtom, Upp
 import { useEffect, useState } from "react"
 import axios from "axios"
 
+
+import SosIcon from '@mui/icons-material/Sos';
+import ShareLocationIcon from '@mui/icons-material/ShareLocation';
+import SanitizerIcon from '@mui/icons-material/Sanitizer';
+import PowerIcon from '@mui/icons-material/Power';
+
 interface selection {
     [key: string]: boolean
 }
@@ -74,8 +80,8 @@ const MbBooking = () => {
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(undefined);
 
     return (
-        <div className='lg:hidden'>
-            <div className="p-4">
+        <div className='lg:hidden w-full'>
+            <div className="p-4 w-full">
                 <div className="flex justify-between items-center">
                     <div>
                         <div className="text-sm">
@@ -108,12 +114,24 @@ const MbBooking = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-6 px-4 flex justify-between items-center">
-                    <div className="bg-red-400">
-                        Sticker
-                    </div>
-                    <div className="bg-blue-400">
-                        Live Tracking
+                <div className=' w-full m-auto'>
+                    <div className="flex justify-center items-center gap-3 w-full m-auto">
+                        <div className='relative group'>
+                            <div className='cursor-pointer '><SosIcon color='error' /></div>
+                            <HoverText Text="Emergency Contact" />
+                        </div>
+                        <div className='relative group'>
+                            <div className='cursor-pointer'><ShareLocationIcon color='error' /></div>
+                            <HoverText Text="Live Location" />
+                        </div>
+                        <div className='relative group'>
+                            <div className='cursor-pointer'><SanitizerIcon color='error' /></div>
+                            <HoverText Text="Sanitizer" />
+                        </div>
+                        <div className='relative group'>
+                            <div className='cursor-pointer'><PowerIcon color='error' /></div>
+                            <HoverText Text="Charging Point" />
+                        </div>
                     </div>
                 </div>
                 <div className="overflow-x-auto mt-4 flex justify-start items-center sm:justify-center">
@@ -126,10 +144,24 @@ const MbBooking = () => {
                 </div>
             </div>
             <div className="sticky z-10 bottom-0 w-full">
-                {(seatCount > 0) && <TotalAmountMb/>}
+                {(seatCount > 0) && <TotalAmountMb />}
             </div>
         </div>
     )
 }
 
 export default MbBooking
+
+interface HoverTextProps {
+    Text: string
+}
+
+const HoverText: React.FC<HoverTextProps> = ({ Text }) => {
+    return (
+        <div className="relative group">
+            <div className=" text-center text-sm absolute -left-10 -bottom-12 opacity-0 group-hover:opacity-100 bg-white p-2 transition-opacity duration-300 text-gray-800 rounded-md shadow-lg">
+                {Text}
+            </div>
+        </div>
+    );
+};

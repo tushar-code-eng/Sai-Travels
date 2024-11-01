@@ -3,14 +3,18 @@
 import LOGO from "@/public/IMG_0863.png"
 import Image from 'next/image';
 
-import { signOut, useSession, } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
 
 import { useRouter } from 'next/navigation';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
 
-import { useState } from "react";
+import DehazeSharpIcon from '@mui/icons-material/DehazeSharp';
+
+import { signIn } from 'next-auth/react';
+
+import googleIcon from '@/public/GoogleIcon.webp'
 
 import {
   Dialog,
@@ -21,10 +25,13 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog"
+import { useRecoilState } from "recoil";
+import { openSideBarAtom } from "@/app/(Recoil)/(atom)/OpenSideBr";
+import { Session } from "next-auth";
 
 const Navbar = () => {
 
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession() as { data: Session | null; status: string };
 
   const router = useRouter()
 
@@ -32,16 +39,17 @@ const Navbar = () => {
     router.push("/")
   }
 
+
   return (
-    <div className="m-auto flex items-center justify-between sm:p-1 bg-white text-black sticky top-1 z-10 shadow-sm w-4/5 rounded-lg ">
-      <div className='flex cursor-pointer sm:w-20 m-4 justify-center items-center' onClick={() => handleClick()}>
-        <Image src={LOGO} alt="LOGO" />
-        <div className="flex">
-          <span className="mr-1">SAI</span>
-          <span>TRAVELS</span>
+    <div className="p-3 w-full m-auto flex items-center justify-between bg-white text-black sticky top-0 z-10 shadow-md rounded-lg lg:w-5/6 lg:top-1 ">
+      <div className='flex cursor-pointer w-28 justify-center items-center sm:w-20 ' onClick={() => handleClick()}>
+        <div className="flex font-medium items-center">
+          <Image src={LOGO} alt="LOGO" />
+          <span className="mr-1 hidden sm:block">SAI</span>
+          <span className=" hidden sm:block">TRAVELS</span>
         </div>
       </div>
-      <div className="flex justify-center items-center gap-20">
+      <div className=" hidden justify-center items-center gap-20 lg:flex">
         <div >
           <Dialog>
             <DialogTrigger asChild>
@@ -81,12 +89,12 @@ const Navbar = () => {
             </DialogContent>
           </Dialog>
         </div>
-        <div >
+        <div>
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline" className="rounded-md relative overflow-hidden transition-colors duration-500 ease-in-out group">
                 <span className="relative z-10">About Us</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] transform -translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0"></span>
+                <span className="absolute -inset-1 bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] transform -translate-x-full transition-transform duration-500 ease-in-out group-hover:translate-x-0"></span>
               </Button>
             </DialogTrigger>
             <DialogContent className="md:w-[700px] w-[90%] max-h-[80vh] overflow-y-auto">
@@ -148,7 +156,8 @@ const Navbar = () => {
 
         </div>
       </div>
-      <div>
+
+      <div className="">
         {status === 'authenticated' ? (
           <div className="flex items-center space-x-4 px-4 py-1 mx-auto">
             <DropdownMenu>
@@ -157,7 +166,7 @@ const Navbar = () => {
                   {session?.user?.image ? (
                     <img
                       src={session.user.image}
-                      alt={session.user.name || 'Profile Picture'}
+                      alt={session.user.fullName || 'Profile Picture'}
                       className="w-12 h-12 rounded-full"
                     />
                   ) : (
@@ -169,12 +178,14 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="absolute right-0">
                 <DropdownMenuItem>
-                  <div>{session?.user?.name}</div>
+                  <div className="px-2">{session?.user?.name || session?.user.fullName}</div>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <div>{session?.user?.email}</div>
+                  <div className="px-2">{session?.user?.email}</div>
                 </DropdownMenuItem>
-                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[1px] w-full" />
+
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
+
                 <DropdownMenuItem>
                   <Button
                     onClick={() => signOut()}
@@ -188,15 +199,25 @@ const Navbar = () => {
           </div>
         ) : <div className="flex gap-4">
 
-          <Button className="text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+          <Button className=" hidden sm:block bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] font-bold text-base hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
             <Link href="/sign-in">Sign In</Link>
           </Button>
-          <Button asChild className="bg-gradient-to-r from-[#FDA0A8] to-[#FA71B7] font-bold text-base hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out">
-            <Link href="/sign-up">Sign Up</Link>
-          </Button>
-        </div>}
-      </div>
 
+
+          <Button
+            onClick={() => {
+              signIn('google',
+                { callbackUrl: '/complete-profile', }
+              )
+            }}
+            className="text-center p-2 text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
+          >
+            Google
+            <Image className='w-8' src={googleIcon} alt="Google" />
+          </Button>
+        </div>
+        }
+      </div>
     </div>
   )
 }

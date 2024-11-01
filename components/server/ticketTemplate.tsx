@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
 
@@ -15,25 +14,20 @@ const styles = StyleSheet.create({
     boxShadow: '0 0 5px rgba(0, 0, 0, 0.1)',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
   },
   logo: {
-    width: 40,
-    height: 40,
+    width: 60,
+    height: 60,
   },
   companyName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1a5f7a',
-  },
-  subHeader: {
-    fontSize: 12,
-    color: '#333',
-    marginBottom: 10,
+    color: '#1E3A8A', // Blue-900 color
     textAlign: 'center',
+    textTransform: 'uppercase',
+    marginVertical: 10,
   },
   row: {
     flexDirection: 'row',
@@ -45,11 +39,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#666',
   },
   value: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   passengerList: {
@@ -57,82 +51,73 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   passenger: {
-    fontSize: 8,
+    fontSize: 10,
     marginBottom: 2,
-  },
-  totalPrice: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#1a5f7a',
-    marginTop: 5,
-    textAlign: 'right',
   },
   footer: {
     marginTop: 10,
-    fontSize: 6,
+    fontSize: 8,
     color: '#666',
     textAlign: 'center',
   },
 });
 
-const TicketTemplate = ({ ticketDetails }:any) => (
+const TicketTemplate = ({ ticketDetails }: any) => (
   <Document>
     <Page size="A6" style={styles.page}>
       <View style={styles.ticket}>
+        {/* Centered Logo */}
         <View style={styles.header}>
-          <img
-            alt="img"
+          <Image
             style={styles.logo}
-            src="/api/placeholder/40/40"
+            src="/api/placeholder/60/60" // Adjust the logo source as needed
+            
           />
-          <Text style={styles.companyName}>SAI TRAVELS</Text>
         </View>
-        <Text style={styles.subHeader}>Bus Ticket</Text>
+        {/* SAI TRAVELS in all caps and blue-900 color */}
+        <Text style={styles.companyName}>SAI TRAVELS</Text>
         
+        {/* Ticket ID on the left side */}
         <View style={styles.row}>
           <View style={styles.column}>
             <Text style={styles.label}>Ticket ID</Text>
             <Text style={styles.value}>{ticketDetails._id}</Text>
           </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Booking Date</Text>
-            <Text style={styles.value}>{new Date(ticketDetails.bookingTime).toLocaleDateString()}</Text>
-          </View>
         </View>
 
-        <View style={styles.row}>
-          <View style={styles.column}>
-            <Text style={styles.label}>Passenger Name</Text>
-            <Text style={styles.value}>{ticketDetails.user.fullName}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text style={styles.label}>Contact</Text>
-            <Text style={styles.value}>{ticketDetails.user.phone}</Text>
-          </View>
-        </View>
-
+        {/* All passengers' names */}
         <View style={styles.passengerList}>
           <Text style={styles.label}>Passengers:</Text>
-          {ticketDetails.passangers.map((passenger:any, index:any) => (
+          {ticketDetails.passangers.map((passenger: any, index: any) => (
             <Text key={index} style={styles.passenger}>
-              {`${index + 1}. ${passenger.fullName} (${passenger.age}, ${passenger.gender})`}
+              {`${index + 1}. ${passenger.fullName}`}
             </Text>
           ))}
         </View>
 
+        {/* Sleeper Details */}
         <View style={styles.passengerList}>
           <Text style={styles.label}>Sleeper Details:</Text>
-          {ticketDetails.sleepers.map((sleeper:any, index:any) => (
+          {ticketDetails.sleepers.map((sleeper: any, index: any) => (
             <Text key={index} style={styles.passenger}>
               {`${sleeper.sleeperName} - ${sleeper.busNumber}`}
             </Text>
           ))}
         </View>
 
-        <Text style={styles.totalPrice}>
-          Total: ₹{ticketDetails.totalAmount}
-        </Text>
+        {/* Booking Date and Total Price in a single horizontal line */}
+        <View style={styles.row}>
+          <View style={styles.column}>
+            <Text style={styles.label}>Booking Date</Text>
+            <Text style={styles.value}>{new Date(ticketDetails.bookingTime).toLocaleDateString()}</Text>
+          </View>
+          <View style={styles.column}>
+            <Text style={styles.label}>Total Price</Text>
+            <Text style={styles.value}>₹{ticketDetails.totalAmount}</Text>
+          </View>
+        </View>
 
+        {/* Footer */}
         <Text style={styles.footer}>
           Thank you for choosing SAI TRAVELS! For inquiries, call us at: 123-456-7890
         </Text>
@@ -141,4 +126,4 @@ const TicketTemplate = ({ ticketDetails }:any) => (
   </Document>
 );
 
-export default TicketTemplate
+export default TicketTemplate;

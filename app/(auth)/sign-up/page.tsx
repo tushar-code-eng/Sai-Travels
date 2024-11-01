@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 import { signIn } from 'next-auth/react'
+
 import axios, { AxiosError } from 'axios';
 import { toast } from '@/components/ui/use-toast';
 import { ApiResponse } from '@/types/ApiResponse';
@@ -20,7 +21,7 @@ import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/logo.png'
 import Image from 'next/image';
 
-// Define validation schema using Zod
+
 const schema = z.object({
     fullName: z.string(),
     email: z.string().nonempty('Email or phone number is required'),
@@ -133,8 +134,6 @@ const SignUp = () => {
         console.log('working')
 
         try {
-
-
             const res = await axios.post('/api/sign-up', data)
 
             toast({
@@ -250,8 +249,11 @@ const SignUp = () => {
                 <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
                 <div className="mt-6">
+                    
                     <Button
-                        onClick={() => signIn('google', { callbackUrl: '/' })}
+                        onClick={() => signIn('google',
+                            { callbackUrl: '/complete-profile', }
+                        )}
                         className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                     >
                         Sign Up with Google

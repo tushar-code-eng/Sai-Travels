@@ -1,9 +1,7 @@
-import querryImage from '@/public/querry.png'
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
 const Footer = () => {
     return (
-        <div className="w-full bg-slate-700 text-white">
+        <div className="w-full bg-gradient-to-r from-[#3D3B6C] to-[#6e69d3] text-white">
             <div className="flex justify-between items-center w-full border-b p-4">
                 <div className='flex flex-col justify-center items-start'>
                     <div className='text-lg font-medium '>
@@ -11,13 +9,13 @@ const Footer = () => {
                     </div>
                     <div className="flex mt-2">
                         <div >
-                            981-473-7631
+                            +91-981-473-7631
                             <br />
                             0172-500-7631
                         </div>
                     </div>
                 </div>
-                <div>
+                <div >
                     <div className='text-lg font-medium mb-2 flex justify-start items-center'>
                         Office Address
                     </div>

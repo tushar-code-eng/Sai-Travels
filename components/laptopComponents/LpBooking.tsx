@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Berth from '../server/berth'
 import Image from 'next/image'
 
-import LOGO from "@/public/logo.png"
+import LOGO from "@/public/IMG_0863.png"
 
 import Link from 'next/link'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
@@ -49,7 +49,6 @@ const LpBooking = () => {
             try {
                 const res = await axios.get('/api/get-sleeper')
                 const All = Array.isArray(res.data) ? res.data : [];
-                console.log('Sleepers data:', All); 
                 
                 if (All.length > 0) {
                     setAllSleepers(All)
@@ -205,14 +204,14 @@ const LpBooking = () => {
             <div className=' col-start-6 col-end-9 border-l-2'>
                 <div className='flex justify-between w-full  shadow-md'>
                     <div className='p-4'>
-                        <div className='text-2xl font-bold text-yellow-500'>
+                        <div className='text-2xl font-bold text-orange-600'>
                             VOLVO AC
                         </div>
                         <div>
                             Sleeper(2+1)
                         </div>
                     </div>
-                    <div className='px-2' >
+                    <div className='px-2 flex justify-center items-center' >
                         <Image src={LOGO} alt='LOGO' width={100} />
                     </div>
                 </div>
@@ -265,7 +264,7 @@ const LpBooking = () => {
                         (!errorOccured) ?
                             (noOfPassangers > 0) ?
 
-                                <Button onClick={() => { handleClick() }} className="w-3/4 bg-yellow-500 text-white text-xl font-medium p-3 rounded-md shadow-md transition-transform duration-200 transform  focus:outline-none">
+                                <Button onClick={() => { handleClick() }} className="w-3/4 bg-gradient-to-tr from-blue-900 to-indigo0-500 text-white text-xl font-medium p-3 rounded-md shadow-md transition-transform duration-200 transform  focus:outline-none">
                                     Provide Passanger Details
                                 </Button>
 
@@ -277,7 +276,7 @@ const LpBooking = () => {
                                             (Please Select Atleast One Sleeper)
                                         </i>
                                     </div>
-                                    <Button className="w-3/4 bg-yellow-500 opacity-50 text-white text-xl font-medium p-3 rounded-md shadow-md ">
+                                    <Button className="w-3/4 bg-gradient-to-tr from-blue-900 to-indigo0-500 opacity-50 text-white text-xl font-medium p-3 rounded-md shadow-md ">
                                         Provide Passanger Details
                                     </Button>
                                 </div>

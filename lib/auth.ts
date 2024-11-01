@@ -80,7 +80,7 @@ export const authOptions: NextAuthOptions = {
         },
         async jwt({ token, user }) {
             if (user) {
-                token._id = user._id?.toString(); // Convert ObjectId to string
+                token._id = user._id?.toString(); 
                 token.isVerified = user.isVerified;
                 token.fullName = user.fullName;
                 token.email = user.email
@@ -95,6 +95,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.fullName = token.fullName;
                 session.user.email = token.email;
                 session.user.phone = token.phone
+                
             }
             return session;
         }

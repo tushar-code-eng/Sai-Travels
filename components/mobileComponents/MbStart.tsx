@@ -8,8 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from 'next/link'
 
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const MbStart = () => {
     const allMonths: string[] = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
@@ -73,10 +72,10 @@ const MbStart = () => {
 
     return (
         <div >
-            <div className='rounded-md border-2 border-slate-300' >
+            <div className='w-full rounded-md border-2 border-slate-300'>
                 <div className=' flex justify-between p-2 border-b-2 shadow-sm'>
                     <div>
-                        <h1 className='text-blue-600 text-3xl font-bold'>VOLVO AC</h1>
+                        <h1 className='text-orange-600 text-3xl font-bold'>VOLVO AC</h1>
                         <p className='text-sm text-left ml-1'>sleeper(2+1)</p>
                     </div>
                     <div>
@@ -84,17 +83,22 @@ const MbStart = () => {
                         <h1 className='text-center text-3xl font-bold'>₹ 700</h1>
                     </div>
                 </div>
-                <div className='p-3'>
+                <div className='w-full p-3'>
                     <div className='w-full text-xl'>
                         <div className=' text-base'>
                             <b>CHANDIGARH</b>(Pick Up)
                         </div>
                         <div className='overflow-hidden w-full flex justify-start border-2 items-center rounded-xl'>
                             <DropdownMenu >
-                                <DropdownMenuTrigger>
-                                    <div className=' flex justify-between items-center text-base p-2 w-full '>
-                                        <div className={`text-base w-full text-left ${pick === "Departure Location..." ? "text-slate-400 " : "text-black "}? `}>
-                                            {pick}
+                                <DropdownMenuTrigger className='w-full'>
+                                    <div className='flex justify-between items-center text-base p-2 w-full '>
+                                        <div className='w-full flex items-center justify-between'>
+                                            <div className={`text-base w-full text-left ${pick === "Departure Location..." ? "text-slate-400 " : "text-black "}? `}>
+                                                {pick}
+                                            </div>
+                                            <div>
+                                                <KeyboardArrowDownIcon />
+                                            </div>
                                         </div>
                                         <DropdownMenuContent className='w-full'>
                                             <DropdownMenuItem >
@@ -116,17 +120,22 @@ const MbStart = () => {
                         </div>
                     </div>
                 </div>
-                <div className='px-3'>
+                <div className='w-full px-3'>
                     <div className='w-full text-xl'>
                         <div className='text-base'>
                             <b>JAMMU</b>(Drop Off)
                         </div>
                         <div className='overflow-hidden w-full flex justify-start border-2 items-center rounded-xl'>
                             <DropdownMenu >
-                                <DropdownMenuTrigger>
+                                <DropdownMenuTrigger className='w-full'>
                                     <div className='flex justify-between items-center text-base p-2 w-full'>
-                                        <div className={`text-base w-full text-left ${drop === "Arival Location..." ? "text-slate-400" : "text-black"} `}>
-                                            {drop}
+                                        <div className='w-full flex items-center justify-between'>
+                                            <div className={`text-base w-full text-left ${drop === "Arival Location..." ? "text-slate-400" : "text-black"} `}>
+                                                {drop}
+                                            </div>
+                                            <div>
+                                                <KeyboardArrowDownIcon />
+                                            </div>
                                         </div>
                                         <DropdownMenuContent className='w-full'>
                                             <DropdownMenuItem >
@@ -154,7 +163,7 @@ const MbStart = () => {
                         <div className='flex gap-3 mt-3'>
                             <div className='flex flex-col justify-center items-center cursor-pointer'>
                                 <div className={'rounded-3xl w-10 h-10  flex flex-col justify-center items-center text-xl'} onClick={() => handleClick(0)}>
-                                    <div className={shade[0] === true ? "bg-yellow-500 w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
+                                    <div className={shade[0] === true ? "bg-gradient-to-tr from-rose-300 to-pink-400 text-white w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
                                         {dates[0]}
                                     </div>
                                 </div>
@@ -164,7 +173,7 @@ const MbStart = () => {
                             </div>
                             <div className='flex flex-col justify-center items-center cursor-pointer'>
                                 <div className={'rounded-3xl w-10 h-10  flex flex-col justify-center items-center text-xl'} onClick={() => handleClick(1)}>
-                                    <div className={shade[1] === true ? "bg-yellow-500 w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
+                                    <div className={shade[1] === true ? "bg-gradient-to-tr from-rose-300 to-pink-400 text-white w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
                                         {dates[1]}
                                     </div>
                                 </div>
@@ -172,16 +181,7 @@ const MbStart = () => {
                                     {alldays[days[1]]}
                                 </div>
                             </div>
-                            <div className='flex flex-col justify-center items-center cursor-pointer'>
-                                <div className={'rounded-3xl w-10 h-10  flex flex-col justify-center items-center text-xl'} onClick={() => handleClick(2)}>
-                                    <div className={shade[2] === true ? "bg-yellow-500 w-10 h-10 rounded-3xl flex justify-center items-center" : "bg-slate-100 transition-transform ease-in-out duration-100 transform border-0 hover:scale-150"} >
-                                        {dates[2]}
-                                    </div>
-                                </div>
-                                <div>
-                                    {alldays[days[2]]}
-                                </div>
-                            </div>
+
 
                         </div>
                         <div className='w-28 flex justify-end items-center px-2'>
@@ -195,7 +195,7 @@ const MbStart = () => {
                     <Link href={{
                         pathname: '/booking'
                     }}>
-                        <button className='py-3 px-12 m-3 mb-4 bg-blue-600 rounded-xl text-xl font-semibold cursor-pointer transition-transform ease-in-out duration-200 transform hover:scale-110'>
+                        <button className='bg-gradient-to-tr from-orange-500 to-orange-700 text-white hover:font-semibold py-2 px-7 m-3 mb-4 bg-white border-2 font-bold rounded-xl text-xl cursor-pointer transition-transform ease-in-out duration-200 transform hover:scale-110'>
                             Continue
                         </button>
                     </Link>

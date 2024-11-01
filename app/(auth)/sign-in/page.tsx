@@ -128,18 +128,8 @@ const SignInForm = () => {
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
-        <div className="mt-6">
-          <Button
-            onClick={() => signIn('google',
-              { callbackUrl: getInfoOfRedirection === "true" ? getUrl || '/' : '/', }
-            )}
-            className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
-          >
-            Sign in with Google
-            <Image className='w-8' src={googleIcon} alt="Google" />
-          </Button>
-        </div>
-        <div className='flex justify-center mt-2'>
+        
+        <div className='flex justify-center'>
           <a href='/sign-up'>New User? <u>Sign Up</u></a>
         </div>
       </div>
@@ -162,21 +152,6 @@ const SignIn = () => {
 };
 
 export default SignIn;
-
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
-};
 
 
 const BottomGradient = () => {

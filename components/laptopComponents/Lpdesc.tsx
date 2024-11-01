@@ -17,66 +17,15 @@ interface LpdescProps {
     scrollToTarget: () => void
 }
 
-import { TypewriterEffectSmooth } from "../ui/typewriter-effect";
-
 import Typewriter from 'typewriter-effect';
 
 
 
 const Lpdesc = ({ scrollToTarget }: LpdescProps) => {
 
-    const words = [[
-        {
-            text: "Daily",
-        },
-        {
-            text: "Bus",
-        },
-        {
-            text: "Service",
-        },
-    ], [
-        {
-            text: "Trusted",
-        },
-        {
-            text: "By",
-        },
-        {
-            text: "1000+",
-        },
-        {
-            text: "Travellers",
-        },
-    ], [
-        {
-            text: "20+",
-        },
-        {
-            text: "Years",
-        },
-        {
-            text: "Of",
-        },
-        {
-            text: "Travelling",
-        },
-    ]];
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [complete, setComplete] = useState(false)
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
-        }, 3000);
-
-        return () => clearInterval(interval);
-    }, []);
-
     return (
-        <div className="hidden lg:flex">
-            <div >
+        <div className="lg:flex w-full">
+            <div className="hidden lg:block" >
                 <CardContainer className="-mt-16">
                     <CardItem translateZ="100" className="w-full">
                         <Image
@@ -89,12 +38,12 @@ const Lpdesc = ({ scrollToTarget }: LpdescProps) => {
                     </CardItem>
                 </CardContainer>
             </div>
-            <div className="flex flex-col items-center w-2/3 p-6 ml-8 mt-20">
+            <div className=" p-4 justify-center w-full flex flex-col items-center xl:w-2/3 xl;p-6 xl:ml-8">
                 <div className="mt-10">
-                    <div className="flex text-8xl font-semibold justify-center items-center bg-gradient-to-r from-[#3D3B6C] to-[#7773D2] text-transparent bg-clip-text font-quicksand">
+                    <div className="text-7xl text-center xl:text-start flex sm:text-8xl font-semibold justify-center items-center bg-gradient-to-r from-[#3D3B6C] to-[#7773D2] text-transparent bg-clip-text font-quicksand">
                         SAI TRAVELS
                     </div>
-                    <div className="flex w-full items-center justify-center bg-clip-text text-orange-500 text-4xl font-bold">
+                    <div className="text-center  flex w-full items-center justify-center bg-clip-text text-orange-500 text-4xl font-bold">
                         <Typewriter
                             options={{
                                 strings: ['Daily Bus Service', 'Trusted By 1000+ Travellers', '20+ Years Of Travelling'],
