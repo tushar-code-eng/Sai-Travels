@@ -28,7 +28,6 @@ const Sleepers = ({ n, change, setChange }: SleeperProps) => {
   const setTotalPrice = useSetRecoilState(totalPriceAtom)
   const setNoOfPassangers = useSetRecoilState(noOfPassangersAtom)
 
-  // const [selectSleeper,setSelectSleeper] = useState<SelectSleeperInterface[]>([{}])
 
   const handleClick = async (value: string) => {
     setChange(!change)
@@ -51,13 +50,13 @@ const Sleepers = ({ n, change, setChange }: SleeperProps) => {
     if (select[value] === true) {
       //decreasing seat Count
       setSeatCount(s => s - 1)
-      setTotalPrice(prev => prev - n.sleeperPrice)
-      setNoOfPassangers(prev => prev - 1)
+      setTotalPrice((prev: number) => prev - n.sleeperPrice)
+      setNoOfPassangers((prev: number) => prev - 1)
     } else {
       //Increasing seat count
       setSeatCount(s => s + 1)
-      setTotalPrice(prev => prev + n.sleeperPrice)
-      setNoOfPassangers(prev => prev + 1)
+      setTotalPrice((prev: number) => prev + n.sleeperPrice)
+      setNoOfPassangers((prev: number) => prev + 1)
     }
   }
 

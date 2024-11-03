@@ -20,6 +20,7 @@ import { DateAtom, DayAtom, DropOffPointAtom, MonthAtom, PickUpPointAtom, totalP
 import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
+import { selectAtom } from '@/app/(Recoil)/(atom)/select'
 
 interface formSchema {
     fullname: string,
@@ -44,7 +45,8 @@ const LpPassangerDetails = () => {
     const pick = useRecoilValue(PickUpPointAtom)
     const drop = useRecoilValue(DropOffPointAtom)
 
-    const totalprice = useRecoilValue(totalPriceAtom)
+    const [totalprice, setTotalPrice] = useRecoilState(totalPriceAtom)
+    console.log("Its before", totalprice)
 
     const getNumberOfSleepers = searchedParams.get("number")
 
@@ -56,7 +58,13 @@ const LpPassangerDetails = () => {
     const [contactEmail, setContactEmail] = useState(session?.user.email)
     const [contactPhone, setContactPhone] = useState(session?.user.phone)
 
+    const select = useRecoilState(selectAtom)
+
     useEffect(() => {
+        // let total=0;
+        select.map((selected) => {
+            console.log(selected)
+        })
         const fetchDetails = async () => {
             const res = await axios.get('/api/getBeingBookedSleeper')
             const datas = res.data

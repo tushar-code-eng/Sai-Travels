@@ -1,4 +1,7 @@
 import { atom } from 'recoil'
+import { recoilPersist } from 'recoil-persist'
+
+const { persistAtom } = recoilPersist()
 
 const d = new Date()
 const nextDate = d.getDate()

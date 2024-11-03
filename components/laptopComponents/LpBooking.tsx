@@ -28,6 +28,7 @@ import SosIcon from '@mui/icons-material/Sos';
 import ShareLocationIcon from '@mui/icons-material/ShareLocation';
 import SanitizerIcon from '@mui/icons-material/Sanitizer';
 import PowerIcon from '@mui/icons-material/Power';
+import { SleeperDateAtom } from '@/app/(Recoil)/(atom)/SleeperDate'
 
 const LpBooking = () => {
 
@@ -44,27 +45,35 @@ const LpBooking = () => {
     const setUpperDouble = useSetRecoilState(UpperDoubleAtom)
     const [AllSleepers, setAllSleepers] = useRecoilState(AllSleepersAtom)
 
+    const [sleeperDate, setSleeperDate] = useRecoilState(SleeperDateAtom)
+
     useEffect(() => {
         const fetchSleepers = async () => {
             try {
-                const res = await axios.get('/api/get-sleeper')
-                const All = Array.isArray(res.data) ? res.data : [];
-                
+                console.log(sleeperDate)
+                const res = await axios.get('/api/get-sleeper', {
+                    params: {
+                        sleeperDate
+                    }
+                })
+                const All = res.data
+
                 if (All.length > 0) {
-                    setAllSleepers(All)
-                    setLowerSingle(All.slice(0, 6))
-                    setLowerDouble(All.slice(6, 12))
-                    setUpperSingle(All.slice(12, 18))
-                    setUpperDouble(All.slice(18, 24))
+                    setAllSleepers(All[4])
+                    setLowerSingle(All[3])
+                    setLowerDouble(All[1])
+                    setUpperSingle(All[2])
+                    setUpperDouble(All[0])
                 } else {
                     console.warn('No sleepers data received or invalid format')
                 }
+                console.log(All)
             } catch (err) {
                 console.error('Error in fetching sleepers:', err)
             }
         }
         fetchSleepers()
-    },[])
+    }, [])
 
     const date = useRecoilValue(DateAtom)
     const month = useRecoilValue(MonthAtom)
@@ -90,17 +99,14 @@ const LpBooking = () => {
         reset()
     }, [])
 
-
     useEffect(() => {
         if (timeoutId) {
             clearTimeout(timeoutId)
         }
         const newtimeoutId = setTimeout(async () => {
             const res = await axios.post('/api/resetIsBooking')
-            // console.log("Reset successfull")
         }, 900000)
         setTimeoutId(newtimeoutId)
-        // console.log(timeoutId)
     }, [change])
 
     const handleClick = async () => {
@@ -234,7 +240,7 @@ const LpBooking = () => {
                         Fair Break Up
                     </div>
                     <div className='mt-2 py-2 px-4 w-full border-2 rounded-xl max-h-28 h-28 overflow-y-auto' >
-                        {AllSleepers.map((index: SleeperInterface, i) => (
+                        {AllSleepers.length > 0 && AllSleepers.map((index, i) => (
                             <div key={i} className='flex justify-between'>
                                 <div>
                                     {select[index.sleeperName] && index.sleeperName}

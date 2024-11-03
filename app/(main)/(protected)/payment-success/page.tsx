@@ -47,7 +47,7 @@ const Page = ({ searchParams: { amount }, }: { searchParams: { amount: string } 
                 <h2 className="text-2xl mb-2">Your Ticket has been booked</h2>
                 <p className='text-sm'> A copy of your ticket has been sent to your registered email id</p>
 
-                <div className='flex w-3/4 m-auto justify-center items-center gap-4 mt-4'>
+                <div className=' flex flex-col gap-4 items-center justify-center sm:flex sm:m-auto sm:justify-center sm:items-center sm:gap-4 mt-4'>
                     <div>
                         <Button>
                             {
@@ -69,8 +69,7 @@ const Page = ({ searchParams: { amount }, }: { searchParams: { amount: string } 
                     </div>
                     <div>
                         <Button onClick={() => {
-                            router.push('/')
-                            window.history.replaceState(null, '', '/');
+                            router.replace('/')
                         }} >
                             Continue booking <ArrowForwardIcon />
                         </Button>

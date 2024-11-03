@@ -7,32 +7,8 @@ interface TimeCount {
     seconds: string
 }
 
-// const getTimeLeft = () => {
-//     // const expiry = Date.now()
-//     let minutes = "0"
-//     let seconds = "0"
-
-//     const difference = new Date().setMinutes(new Date().getMinutes() + 10) - new Date().getTime()
-
-//     if (difference <= 0) {
-//         return {
-//             minutes,
-//             seconds
-//         }
-//     }
-
-//     minutes = Math.floor((difference / (1000 * 60)) % 60).toString()
-//     seconds = Math.floor((difference / 1000) % 60).toString()
-
-//     return {
-//         minutes,
-//         seconds
-//     }
-
-// }
-
 const Timmer = () => {
-    const [timeLeft, setTimeLeft] = useState<number>(15 * 60); 
+    const [timeLeft, setTimeLeft] = useState<number>(10 * 60);
 
     useEffect(() => {
         if (timeLeft <= 0) return;
@@ -51,9 +27,9 @@ const Timmer = () => {
     };
 
     return (
-        <div className="flex items-center justify-center gap-3">
-            <div className=" text-red-600 ">
-                Time Left <b>{formatTime(timeLeft)}</b>
+        <div className="">
+            <div className="flex items-center justify-center gap-2 flex-col text-red-600 ">
+                <p>Time Left <b>{formatTime(timeLeft)}</b></p>
                 <p>Do not refresh or go back rom the page</p>
             </div>
         </div>

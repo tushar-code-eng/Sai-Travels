@@ -1,38 +1,41 @@
-import mongoose , {Schema,Document} from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface SleeperInterface extends Document{
-    sleeperName:string,
-    sleeperPrice:number,
-    isBooked:boolean,
-    isBeingBooked:boolean
-    busNumber:7468 | 7882
+export interface SleeperInterface extends Document {
+    date: string;
+    sleeperName: string;
+    sleeperPrice: number;
+    isBooked: boolean;
+    isBeingBooked: boolean;
+    busNumber: number[];
 }
 
-const SleeperSchema:Schema<SleeperInterface> = new mongoose.Schema({
-    sleeperName:{
-        type:String,
-        required:true,
-        unique:true
+const SleeperSchema: Schema<SleeperInterface> = new mongoose.Schema({
+    date: {
+        type: String,
+        required: true
     },
-    sleeperPrice:{
-        type:Number,
-        required:true
+    sleeperName: {
+        type: String,
+        required: true
     },
-    isBooked:{
-        type:Boolean,
-        default:false
+    sleeperPrice: {
+        type: Number,
+        required: true,
     },
-    isBeingBooked:{
-        type:Boolean,
-        default:false
+    isBooked: {
+        type: Boolean,
+        default: false
     },
-    busNumber:{
-        type:Number,
-        enum:[7468,7882],
-        required:true
+    isBeingBooked: {
+        type: Boolean,
+        default: false
+    },
+    busNumber: {
+        type: [Number],
+        default: [4567, 4321]
     }
 })
 
-const SleeperModel = (mongoose.models.Sleeper as mongoose.Model<SleeperInterface>) || mongoose.model<SleeperInterface>('Sleeper',SleeperSchema)
+const SleeperModel = (mongoose.models.Sleeper as mongoose.Model<SleeperInterface>) || mongoose.model<SleeperInterface>('Sleeper', SleeperSchema)
 
 export default SleeperModel

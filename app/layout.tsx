@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Footer from "@/components/server/footer";
+
 import { NextAuthProvider } from "./Providers";
-import { ToastProvider } from "@radix-ui/react-toast";
+
 import { Toaster } from "@/components/ui/toaster";
+import '../server/cron'
 
 const inter = Inter({ subsets: ["latin"] });
 

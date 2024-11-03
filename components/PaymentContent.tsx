@@ -21,11 +21,13 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const PaymentContent = () => {
 
-    const {data:session} = useSession()
+    const { data: session } = useSession()
 
     const totalprice = useRecoilValue(totalPriceAtom)
 
-    const pg = useRecoilValue(passangerNamesAtom) 
+    console.log("let me checking")
+    const pg = useRecoilValue(passangerNamesAtom)
+    console.log(totalprice)
 
     const sendTicket = async () => {
         try {
@@ -42,24 +44,25 @@ const PaymentContent = () => {
     }
 
     return (
-        <div className="w-2/6 h-full mx-auto p-10 text-center border m-10 rounded-md bg-gradient-to-tr">
-            <h1>
-                <Timmer />
-            </h1>
-            <div className="mb-10">
-                <h1 className="text-4xl font-extrabold mb-2">Complete Transaction</h1>
-                <Elements
-                    stripe={stripePromise}
-                    options={{
-                        mode: "payment",
-                        amount: convertToSubcurrency(totalprice),
-                        currency: "inr"
-                    }}
-                >
-                    <CheckoutPage sendTicket={sendTicket} amount={totalprice} />
-                </Elements>
+        <div className="w-full">
+            <div className="flex flex-col gap-4 justify-center items-center">
+                <div className="my-4 ">
+                    <Timmer />
+                </div>
+                <div className="">
+                    <h1 className="text-center text-4xl font-extrabold mb-2">Complete Transaction</h1>
+                    <Elements
+                        stripe={stripePromise}
+                        options={{
+                            mode: "payment",
+                            amount: convertToSubcurrency(totalprice),
+                            currency: "inr"
+                        }}
+                    >
+                        <CheckoutPage sendTicket={sendTicket} amount={totalprice} />
+                    </Elements>
+                </div>
             </div>
-
         </div>
     )
 }

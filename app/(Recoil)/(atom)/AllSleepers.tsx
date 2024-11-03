@@ -6,7 +6,6 @@ export const AllSleepersAtom = atom<SleeperInterface[]>({
     default: [],
 });
 
-
 export const LowerDoubleAtom = atom<SleeperInterface[]>({
     key: 'LowerDoubleAtom',
     default: [],

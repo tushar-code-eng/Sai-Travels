@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,11 +14,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import Link from 'next/link'
 import { Button } from '@react-email/components'
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { DateAtom, DayAtom, DropOffPointAtom, MonthAtom, NextDateAtom, NextDayAtom, NextMonthAtom, NextYearAtom, PickUpPointAtom, YearAtom } from '@/app/(Recoil)/(atom)/FirstPage';
 import { loadAtom } from '@/app/(Recoil)/(atom)/Loading';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { SleeperDateAtom } from '@/app/(Recoil)/(atom)/SleeperDate';
 
 interface IFormInput {
     PickUpPoint: String;
@@ -47,12 +48,24 @@ const LpBox = () => {
     const [pick, setPick] = useRecoilState(PickUpPointAtom)
     const [drop, setDrop] = useRecoilState(DropOffPointAtom)
 
+    // const setSleeperDate = useSetRecoilState(SleeperDateAtom)
+    const [sleeperDate, setSleeperDate] = useRecoilState(SleeperDateAtom)
+
+    useEffect(() => {
+        const currentDate = new Date();
+        setSleeperDate(currentDate)
+    }, [])
     const handleClick = () => {
         setTom(!tom)
         let n;
+        const currentDate = new Date();
         if (tom) {
+            setSleeperDate(currentDate)
             n = 0
         } else {
+            const tomorrow = new Date(currentDate);
+            tomorrow.setDate(currentDate.getDate() + 1);
+            setSleeperDate(tomorrow)
             n = 1
         }
     }
@@ -105,12 +118,12 @@ const LpBox = () => {
                                 <div className='w-full overflow-hidden flex justify-start items-center'>
                                     <div className='w-full'>
                                         <div className=' w-full flex items-center justify-between'>
-                                        <div className={`text-base w-full text-left ${drop === "Arival Location..." ? "text-slate-400" : "text-black"} `}>
-                                            {drop}
-                                        </div>
-                                        <div>
-                                            <KeyboardArrowDownIcon />
-                                        </div>
+                                            <div className={`text-base w-full text-left ${drop === "Arival Location..." ? "text-slate-400" : "text-black"} `}>
+                                                {drop}
+                                            </div>
+                                            <div>
+                                                <KeyboardArrowDownIcon />
+                                            </div>
                                         </div>
                                         <DropdownMenuContent className='w-full'>
                                             <DropdownMenuItem >
@@ -146,7 +159,7 @@ const LpBox = () => {
                     </div>
                     <div className='flex items-center'>
                         <Link href={{ pathname: '/booking' }}>
-                            <button onClick={() => { setLoad(true) }} className="relative overflow-hidden transition-colors duration-500 ease-in-out group py-3 px-12 rounded-xl text-xl font-semibold cursor-pointer text-black border-2 border-transparent group-hover:border-transparent">
+                            <button onClick={() => { setLoad(true); console.log(sleeperDate) }} className="relative overflow-hidden transition-colors duration-500 ease-in-out group py-3 px-12 rounded-xl text-xl font-semibold cursor-pointer text-black border-2 border-transparent group-hover:border-transparent">
                                 <span className="relative z-10">Continue</span>
                                 <span className="absolute -inset-1 bg-gradient-to-tr from-rose-300 to-pink-400 transform -translate-x-full transition-transform duration-1000 ease-in-out group-hover:translate-x-0"></span>
                                 <span className="absolute inset-0 border-2 rounded-xl border-pink-400 opacity-100 group-hover:opacity-0 transition-opacity duration-500 ease-in-out"></span>
