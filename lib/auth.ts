@@ -55,9 +55,10 @@ export const authOptions: NextAuthOptions = {
     callbacks: {
         async signIn({ user, account, profile }) {
             if (account?.provider === 'google') {
-                dbConnection()
-                const existingUser = await UserModel.findOne({ email: user.email, isVerified: true })
+                await dbConnection();
+                const existingUser = await UserModel.findOne({ email: user.email, isVerified: true });
                 if (!existingUser) {
+                    console.log("comming")
                     const expiryDate = new Date();
                     expiryDate.setHours(expiryDate.getHours() + 1);
                     const newUser = new UserModel({
@@ -69,18 +70,23 @@ export const authOptions: NextAuthOptions = {
                         verifyCodeExpiry: expiryDate,
                         isVerified: true,
                         googleSignIn: true
-                    })
-                    newUser.save()
-                    return "Sign in successfull"
+                    });
+                    await newUser.save();
+                    return `/complete-profile/${user.email}`;
                 } else {
-                    return true
+                    return true;
                 }
             }
             return true;
         },
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
+
+            if (trigger === "update") {
+                return { ...token, ...session.user }
+            }
+
             if (user) {
-                token._id = user._id?.toString(); 
+                token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.fullName = user.fullName;
                 token.email = user.email
@@ -95,7 +101,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.fullName = token.fullName;
                 session.user.email = token.email;
                 session.user.phone = token.phone
-                
+
             }
             return session;
         }

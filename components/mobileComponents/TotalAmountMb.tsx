@@ -17,6 +17,11 @@ import { selectAtom } from "@/app/(Recoil)/(atom)/select";
 import { seatCountAtom } from "@/app/(Recoil)/(atom)/seatCount";
 import { totalPriceAtom } from "@/app/(Recoil)/(atom)/FirstPage";
 import { noOfPassangersAtom } from "@/app/(Recoil)/(atom)/FirstPage";
+import axios from "axios"
+import { toast } from "../ui/use-toast"
+
+import { useRouter } from 'next/navigation'
+import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate"
 
 interface dataObjectTypes {
     [key: string]: number
@@ -27,6 +32,8 @@ interface dataObject {
 }
 
 const TotalAmountMb = () => {
+
+    const router = useRouter()
 
     const { Price }: dataObject = jsonObject
 
@@ -46,8 +53,38 @@ const TotalAmountMb = () => {
     const getMonth = searchedParams.get("month")
     const getYear = searchedParams.get("year")
 
+    const [errorOccured, setErroroccured] = useState(false)
+
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(undefined);
+
+    const sleeperDate = useRecoilValue(SleeperDateAtom)
+
     const fairBreakUpHandle = () => {
         setPricebreakup(!pricebreakup)
+    }
+
+    const handleClick = async () => {
+        const keys: string[] = Object.keys(select)
+        const check = await axios.post(`/api/checkBooking`, { keys, sleeperDate })
+
+        if (check.data.message === "TimeOut") {
+            setErroroccured(true)
+            toast({
+                title: "Time Out",
+                description: "Time out please select the sleepers again"
+            })
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        } else {
+            if (timeoutId) {
+                clearTimeout(timeoutId)
+            } else {
+                console.log('didnt worked')
+            }
+            router.push('/passangersdetails')
+        }
+
     }
 
     return (
@@ -101,15 +138,9 @@ const TotalAmountMb = () => {
                     </button>
                 </div>
                 <div className="w-full flex justify-center items-center mt-1 p-3">
-                    <Link className='w-full flex justify-center' href={{
-                        pathname: '/passangersdetails',
-                        query: {
-                            number: noOfPassangers
-                        }
-                    }
-                    }>
-                        <button className="p-2 w-[90%] bg-yellow-500 text-xl rounded-xl">Provide Passanger Details</button>
-                    </Link>
+
+                    <button onClick={() => { handleClick() }} className="p-2 w-[90%] bg-yellow-500 text-xl rounded-xl">Provide Passanger Details</button>
+
                 </div>
             </div>
         </>

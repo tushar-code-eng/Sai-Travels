@@ -1,6 +1,7 @@
 "use client"
 
 import ProtectionRoute from "@/components/protectingRoutes"
+import { Toaster } from "@/components/ui/toaster"
 
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -9,6 +10,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 <main>
                     {children}
                 </main>
+                <Toaster />
             </ProtectionRoute>
         </div>
     )

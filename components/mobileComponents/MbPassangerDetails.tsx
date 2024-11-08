@@ -1,11 +1,8 @@
 "use client"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Image from 'next/image';
 
-import whatsapp from "@/public/whatsapp.png"
-import { Switch } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { DateAtom, DayAtom, DropOffPointAtom, MonthAtom, PickUpPointAtom, totalPriceAtom, YearAtom } from '@/app/(Recoil)/(atom)/FirstPage';
 import { bookingSleeperAtom } from '@/app/(Recoil)/(atom)/setBookingSleepers';
@@ -13,7 +10,7 @@ import { contactAtom, passangerNamesAtom } from '@/app/(Recoil)/(atom)/passanger
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SleeperInterface } from '@/models/Sleeper';
-import { useForm } from 'react-hook-form';
+import { SleeperDateAtom } from '@/app/(Recoil)/(atom)/SleeperDate';
 
 const MbPassangerDetails = () => {
 
@@ -21,19 +18,16 @@ const MbPassangerDetails = () => {
 
     const { data: session } = useSession()
 
-    const searchedParams = useSearchParams()
 
-    const date = useRecoilValue(DateAtom)
-    const month = useRecoilValue(MonthAtom)
-    const day = useRecoilValue(DayAtom)
-    const year = useRecoilValue(YearAtom)
+    // const date = useRecoilValue(DateAtom)
+    // const month = useRecoilValue(MonthAtom)
+    // const day = useRecoilValue(DayAtom)
+    // const year = useRecoilValue(YearAtom)
 
-    const pick = useRecoilValue(PickUpPointAtom)
-    const drop = useRecoilValue(DropOffPointAtom)
+    // const pick = useRecoilValue(PickUpPointAtom)
+    // const drop = useRecoilValue(DropOffPointAtom)
 
     const totalprice = useRecoilValue(totalPriceAtom)
-
-    const getNumberOfSleepers = searchedParams.get("number")
 
     const [bookingSleepers, setBookingSleepers] = useRecoilState(bookingSleeperAtom)
     const [formData, setFormData] = useRecoilState(passangerNamesAtom)
@@ -43,23 +37,39 @@ const MbPassangerDetails = () => {
     const [contactEmail, setContactEmail] = useState(session?.user.email)
     const [contactPhone, setContactPhone] = useState(session?.user.phone)
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const onSubmit = (data: any) => {
-        console.log(data);
-        setContact({ email: contactPhone, phone: contactEmail })
-        router.push(`/payment`)
-    };
+    const sleeperDate = useRecoilValue(SleeperDateAtom)
 
     useEffect(() => {
         const fetchDetails = async () => {
-            const res = await axios.get('/api/getBeingBookedSleeper')
+            const res = await axios.get('/api/getBeingBookedSleeper', {
+                params: {
+                    sleeperDate: sleeperDate
+                }
+            })
             const datas = res.data
             const realdata = datas['sl'].map((it: SleeperInterface) => [it.sleeperName, it.sleeperPrice])
             setBookingSleepers(realdata)
         }
         fetchDetails()
+
+        if (totalprice !== 0) {
+            localStorage.setItem('tPrice', totalprice.toString())
+        }
     }, [])
+
+    const handleSubmitForm = async (event: React.FormEvent) => {
+        event.preventDefault();
+        setContact({ email: contactPhone, phone: contactEmail })
+        router.push(`/payment`)
+    };
+
+    const handleChange = (index: number, field: string, value: string) => {
+        const updatedFormData = [...formData];
+        updatedFormData[index] = { ...updatedFormData[index], [field]: value };
+        setFormData(updatedFormData);
+    };
+
+
 
     return (
         <div className=' md:hidden'>
@@ -119,7 +129,7 @@ const MbPassangerDetails = () => {
                 </div>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmitForm}>
                 <div className='border-2 border-slate-300 w-[95%] m-auto mt-2 rounded-lg shadow-xl p-2'>
                     <div>
                         <div className='text-xl font-bold'>
@@ -134,8 +144,7 @@ const MbPassangerDetails = () => {
                             Email ID
                         </div>
                         <input
-                        
-                            {...register('email')}
+
                             className='font-semibold outline-none w-full cursor-not-allowed '
                             readOnly
                             defaultValue={session?.user.email}
@@ -147,9 +156,10 @@ const MbPassangerDetails = () => {
                             Phone
                         </div>
                         <input
-                            {...register('phone')}
+
                             className='font-semibold outline-none w-full'
                             defaultValue={session?.user.phone}
+                            onChange={(e) => { setContactPhone(e.target.value) }}
                         />
                     </div>
                 </div>
@@ -162,25 +172,27 @@ const MbPassangerDetails = () => {
                         {bookingSleepers.map((seat, index) => (
                             <div key={index} className="flex  py-2 justify-between items-center gap-2">
                                 <input
-                                    {...register(`passengers.${index}.fullName`)}
+
                                     className="border-2 w-[45%] py-2 px-3 rounded-lg"
                                     type="text"
                                     placeholder="Full Name"
                                     required
+                                    onChange={(e) => handleChange(index, 'fullName', e.target.value)}
                                 />
                                 <input
-                                    {...register(`passengers.${index}.age`)}
+
                                     className="border-2 py-2 px-3 max-w-14 rounded-lg"
                                     type="text"
                                     placeholder="Age"
                                     required
+                                    onChange={(e) => handleChange(index, 'age', e.target.value)}
                                 />
                                 <select
-                                    {...register(`passengers.${index}.gender`)}
                                     id="gender"
                                     name="gender"
                                     className="border-2 cursor-pointer w-[35%] appearance-none rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
+                                    onChange={(e) => handleChange(index, 'gender', e.target.value)}
                                 >
                                     <option value="">Gender</option>
                                     <option value="male">Male</option>
@@ -190,7 +202,7 @@ const MbPassangerDetails = () => {
                             </div>
                         ))}
                     </>
-                </div> 
+                </div>
                 <div className='w-full m-auto flex justify-center items-center'>
                     <button type="submit" className="font-semibold text-lg w-full m-2 bg-gradient-to-tr from-blue-900 to-blue-700 py-2 px-4 rounded text-white">Submit</button>
                 </div>

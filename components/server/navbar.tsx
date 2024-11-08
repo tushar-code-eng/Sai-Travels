@@ -29,6 +29,8 @@ import { useRecoilState } from "recoil";
 import { openSideBarAtom } from "@/app/(Recoil)/(atom)/OpenSideBr";
 import { Session } from "next-auth";
 
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+
 const Navbar = () => {
 
   const { data: session, status } = useSession() as { data: Session | null; status: string };
@@ -41,7 +43,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="p-3 w-full m-auto flex items-center justify-between bg-white text-black sticky top-0 z-10 shadow-md rounded-lg lg:w-5/6 lg:top-1 ">
+    <div className="p-3 w-full m-auto flex items-center justify-between bg-white text-black sticky top-0 z-10 shadow-md rounded-lg lg:w-full lg:px-8 lg:top-1 ">
       <div className='flex cursor-pointer w-28 justify-center items-center sm:w-20 ' onClick={() => handleClick()}>
         <div className="flex font-medium items-center">
           <Image src={LOGO} alt="LOGO" />
@@ -159,7 +161,7 @@ const Navbar = () => {
 
       <div className="">
         {status === 'authenticated' ? (
-          <div className="flex items-center space-x-4 px-4 py-1 mx-auto">
+          <div className="flex items-center space-x-4 py-1 mx-auto">
             <DropdownMenu>
               <DropdownMenuTrigger className="cursor-pointer outline-none">
                 <div className="WOW text-lg font-semibold">
@@ -184,7 +186,17 @@ const Navbar = () => {
                   <div className="px-2">{session?.user?.email}</div>
                 </DropdownMenuItem>
 
-                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
+
+                <DropdownMenuItem>
+                  <Button onClick={() => { router.push('/profile') }} className="flex items-center justify-start gap-1 rounded-md cursor-pointer font-medium text-base w-full px-2 py-1">
+                    <span><PersonOutlineIcon /></span>
+                    <span>Profile</span>
+                  </Button>
+                </DropdownMenuItem>
+
+
+                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-1 h-[1px] w-full" />
 
                 <DropdownMenuItem>
                   <Button
@@ -203,11 +215,10 @@ const Navbar = () => {
             <Link href="/sign-in">Sign In</Link>
           </Button>
 
-
           <Button
             onClick={() => {
               signIn('google',
-                { callbackUrl: '/complete-profile', }
+                { callbackUrl: '/', }
               )
             }}
             className="text-center p-2 text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"

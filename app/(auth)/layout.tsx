@@ -1,5 +1,6 @@
 "use client"
 
+import { Toaster } from "@/components/ui/toaster";
 import { RecoilRoot } from "recoil";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
@@ -9,6 +10,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
                 <main>
                     {children}
                 </main>
+                <Toaster />
             </RecoilRoot>
         </div>
     )

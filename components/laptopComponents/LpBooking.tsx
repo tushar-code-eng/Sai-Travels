@@ -45,12 +45,11 @@ const LpBooking = () => {
     const setUpperDouble = useSetRecoilState(UpperDoubleAtom)
     const [AllSleepers, setAllSleepers] = useRecoilState(AllSleepersAtom)
 
-    const [sleeperDate, setSleeperDate] = useRecoilState(SleeperDateAtom)
+    const sleeperDate = useRecoilState(SleeperDateAtom)
 
     useEffect(() => {
         const fetchSleepers = async () => {
             try {
-                console.log(sleeperDate)
                 const res = await axios.get('/api/get-sleeper', {
                     params: {
                         sleeperDate
@@ -94,7 +93,9 @@ const LpBooking = () => {
 
     useEffect(() => {
         const reset = async () => {
-            await axios.post('/api/resetIsBooking')
+            await axios.post('/api/resetIsBooking', {
+                sleeperDate
+            })
         }
         reset()
     }, [])
@@ -104,14 +105,16 @@ const LpBooking = () => {
             clearTimeout(timeoutId)
         }
         const newtimeoutId = setTimeout(async () => {
-            const res = await axios.post('/api/resetIsBooking')
+            const res = await axios.post('/api/resetIsBooking', {
+                sleeperDate
+            })
         }, 900000)
         setTimeoutId(newtimeoutId)
     }, [change])
 
     const handleClick = async () => {
         const keys: string[] = Object.keys(select)
-        const check = await axios.post(`/api/checkBooking`, { keys })
+        const check = await axios.post(`/api/checkBooking`, { keys, sleeperDate })
 
         if (check.data.message === "TimeOut") {
             setErroroccured(true)

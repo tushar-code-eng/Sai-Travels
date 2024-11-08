@@ -21,6 +21,7 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 import { selectAtom } from '@/app/(Recoil)/(atom)/select'
+import { SleeperDateAtom } from '@/app/(Recoil)/(atom)/SleeperDate'
 
 interface formSchema {
     fullname: string,
@@ -46,6 +47,7 @@ const LpPassangerDetails = () => {
     const drop = useRecoilValue(DropOffPointAtom)
 
     const [totalprice, setTotalPrice] = useRecoilState(totalPriceAtom)
+
     console.log("Its before", totalprice)
 
     const getNumberOfSleepers = searchedParams.get("number")
@@ -58,20 +60,24 @@ const LpPassangerDetails = () => {
     const [contactEmail, setContactEmail] = useState(session?.user.email)
     const [contactPhone, setContactPhone] = useState(session?.user.phone)
 
-    const select = useRecoilState(selectAtom)
+    const sleeperDate = useRecoilValue(SleeperDateAtom)
 
     useEffect(() => {
-        // let total=0;
-        select.map((selected) => {
-            console.log(selected)
-        })
         const fetchDetails = async () => {
-            const res = await axios.get('/api/getBeingBookedSleeper')
+            const res = await axios.get('/api/getBeingBookedSleeper', {
+                params: {
+                    sleeperDate: sleeperDate
+                }
+            })
             const datas = res.data
             const realdata = datas['sl'].map((it: SleeperInterface) => [it.sleeperName, it.sleeperPrice])
             setBookingSleepers(realdata)
         }
         fetchDetails()
+
+        if (totalprice !== 0) {
+            localStorage.setItem('tPrice', totalprice.toString())
+        }
     }, [])
 
 
@@ -121,7 +127,7 @@ const LpPassangerDetails = () => {
                                     Amount to be paid
                                 </div>
                                 <div className="font-bold">
-                                    <div className='text-green-600' >₹ <b>{totalprice}</b></div>
+                                    <div className='text-green-600' >₹ <b>{localStorage.getItem('tPrice')}</b></div>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +150,6 @@ const LpPassangerDetails = () => {
                                             type="text"
                                             placeholder="Age"
                                             required
-                                            // value={formData[index].age}
                                             onChange={(e) => handleChange(index, 'age', e.target.value)}
                                         />
                                         <select
@@ -152,7 +157,6 @@ const LpPassangerDetails = () => {
                                             name="gender"
                                             className="border-2 cursor-pointer appearance-none rounded-lg py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             required
-                                            // value={formData[index].gender}
                                             onChange={(e) => handleChange(index, 'gender', e.target.value)}
                                         >
                                             <option value="">Gender</option>

@@ -85,11 +85,11 @@ export default function VerifyAccount() {
         const verificationCodeEmail = code.join('');
         const verificationCodePhone = otp.join('');
         try {
-            if (!confirmationResult) {
-                throw new Error('No confirmation result available');
-            }
-            
-            await confirmationResult.confirm(verificationCodePhone);
+            // if (!confirmationResult) {
+            //     throw new Error('No confirmation result available');
+            // }
+
+            // await confirmationResult.confirm(verificationCodePhone);
             setOtp(Array(6).fill(''));
 
             const Emailresponse = await axios.post<ApiResponse>(`/api/verify-code`, {
@@ -98,7 +98,7 @@ export default function VerifyAccount() {
                 code: verificationCodeEmail,
             });
 
-            await confirmationResult.confirm(verificationCodePhone);
+            // await confirmationResult.confirm(verificationCodePhone);
 
             toast({
                 title: 'Success',

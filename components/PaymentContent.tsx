@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { passangerNamesAtom } from "@/app/(Recoil)/(atom)/passangerNames";
 import Timmer from "@/components/laptopComponents/Timmer";
 import { totalPriceAtom } from "@/app/(Recoil)/(atom)/FirstPage";
+import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate";
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
     throw new Error("API Stripe key undefined")
@@ -25,9 +26,9 @@ const PaymentContent = () => {
 
     const totalprice = useRecoilValue(totalPriceAtom)
 
-    console.log("let me checking")
     const pg = useRecoilValue(passangerNamesAtom)
-    console.log(totalprice)
+
+    const sleeperDate = useRecoilValue(SleeperDateAtom)
 
     const sendTicket = async () => {
         try {
@@ -35,6 +36,7 @@ const PaymentContent = () => {
                 user: session?.user.email,
                 passangers: pg,
                 totalAmount: totalprice,
+                sleeperDate:sleeperDate
             })
             localStorage.setItem(`paymentSuccess_${session?.user}`, 'true');
             return res.data.ticketId
@@ -55,11 +57,11 @@ const PaymentContent = () => {
                         stripe={stripePromise}
                         options={{
                             mode: "payment",
-                            amount: convertToSubcurrency(totalprice),
+                            amount: convertToSubcurrency(Number(localStorage.getItem('tPrice'))),
                             currency: "inr"
                         }}
                     >
-                        <CheckoutPage sendTicket={sendTicket} amount={totalprice} />
+                        <CheckoutPage sendTicket={sendTicket} />
                     </Elements>
                 </div>
             </div>

@@ -14,11 +14,10 @@ import { Button } from "../ui/button";
 import convertToSubcurrency from "@/lib/convertToSubcurrency";
 
 interface checkOutProps {
-    amount: number | undefined
     sendTicket: () => Promise<string>
 }
 
-const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
+const CheckoutPage = ({ sendTicket }: checkOutProps) => {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -27,10 +26,10 @@ const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        console.log('running')
+        const amt = Number(localStorage.getItem('tPrice'))
         const details = async () => {
             const res = await axios.post(`/api/create-payment-intent`, {
-                amount: JSON.stringify(convertToSubcurrency(amount))
+                amount: JSON.stringify(convertToSubcurrency(amt))
             },
                 {
                     headers: {
@@ -40,7 +39,7 @@ const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
             setClientSecret(res.data.clientSecret)
         }
         details()
-    }, [amount])
+    }, [])
 
     const paymentElementOptions = {
         layout: "tabs",
@@ -81,7 +80,7 @@ const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
             setErrorMessage("An unexpected error occurred.");
         }
 
-        
+
 
     }
 
@@ -93,7 +92,7 @@ const CheckoutPage = ({ amount, sendTicket }: checkOutProps) => {
             {errorMessage && <div>{errorMessage}</div>}
 
             <Button disabled={!stripe || loading} className="text-white w-full p-5 bg-black mt-2 rounded-md font-bold disabled:opacity-50 disabled:animate-pulse">
-                {!loading ? `Pay ₹ ${amount}` : "Processing..."}
+                {!loading ? `Pay ₹ ${localStorage.getItem('tPrice')}` : "Processing..."}
             </Button>
         </form>
     )

@@ -7,7 +7,8 @@ import { selectAtom } from "@/app/(Recoil)/(atom)/select"
 import { totalPriceAtom } from "@/app/(Recoil)/(atom)/FirstPage"
 import { SleeperInterface } from "@/models/Sleeper"
 import axios from "axios"
-import { useRecoilState, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
+import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate"
 
 interface SleeperProps {
     n: SleeperInterface
@@ -23,10 +24,13 @@ const SleeperDouble = ({ n, change, setChange }: SleeperProps) => {
     const setTotalPrice = useSetRecoilState(totalPriceAtom)
     const setNoOfPassangers = useSetRecoilState(noOfPassangersAtom)
 
+    const sleeperDate = useRecoilValue(SleeperDateAtom)
+
     const handleClick = async (value: string) => {
         setChange(!change)
         const res = await axios.post('/api/setIsBooking', {
-            value
+            value,
+            sleeperDate: sleeperDate
         })
         console.log(res)
 
@@ -40,14 +44,14 @@ const SleeperDouble = ({ n, change, setChange }: SleeperProps) => {
         }))
         if (select[value] === true) {
             //decreasing seat Count
-            setSeatCount(s => s - 1)
-            setTotalPrice(prev => prev - n.sleeperPrice)
-            setNoOfPassangers(prev => prev - 1)
+            setSeatCount((s: number) => s - 1)
+            setTotalPrice((prev: number) => prev - n.sleeperPrice)
+            setNoOfPassangers((prev: number) => prev - 1)
         } else {
             //Increasing seat count
-            setSeatCount(s => s + 1)
-            setTotalPrice(prev => prev + n.sleeperPrice)
-            setNoOfPassangers(prev => prev + 1)
+            setSeatCount((s: number) => s + 1)
+            setTotalPrice((prev: number) => prev + n.sleeperPrice)
+            setNoOfPassangers((prev: number) => prev + 1)
         }
     }
 

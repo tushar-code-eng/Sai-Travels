@@ -18,6 +18,8 @@ import SosIcon from '@mui/icons-material/Sos';
 import ShareLocationIcon from '@mui/icons-material/ShareLocation';
 import SanitizerIcon from '@mui/icons-material/Sanitizer';
 import PowerIcon from '@mui/icons-material/Power';
+import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate"
+import { toast } from "../ui/use-toast"
 
 interface selection {
     [key: string]: boolean
@@ -43,24 +45,36 @@ const MbBooking = () => {
     const setUpperDouble = useSetRecoilState(UpperDoubleAtom)
     const [AllSleepers, setAllSleepers] = useRecoilState(AllSleepersAtom)
 
+    const sleeperDate = useRecoilState(SleeperDateAtom)
 
     useEffect(() => {
         const fetchSleepers = async () => {
             try {
-                const res = await axios.get('/api/get-sleeper')
+                const res = await axios.get('/api/get-sleeper', {
+                    params: {
+                        sleeperDate
+                    }
+                })
                 const All = res.data
-                setAllSleepers(All)
-                setLowerSingle(All.slice(0, 6))
-                setLowerDouble(All.slice(6, 12))
-                setUpperSingle(All.slice(12, 18))
-                setUpperDouble(All.slice(18, 24))
 
+                if (All.length > 0) {
+                    setAllSleepers(All[4])
+                    setLowerSingle(All[3])
+                    setLowerDouble(All[1])
+                    setUpperSingle(All[2])
+                    setUpperDouble(All[0])
+                } else {
+                    console.warn('No sleepers data received or invalid format')
+                }
+                console.log(All)
             } catch (err) {
-                console.log('Error in fetching sleepers', err)
+                console.error('Error in fetching sleepers:', err)
             }
         }
         fetchSleepers()
     }, [])
+
+
 
     const date = useRecoilValue(DateAtom)
     const month = useRecoilValue(MonthAtom)
@@ -78,6 +92,23 @@ const MbBooking = () => {
     const [change, setChange] = useState(false)
     const [errorOccured, setErroroccured] = useState(false)
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>(undefined);
+
+    useEffect(() => {
+        const reset = async () => {
+            await axios.post('/api/resetIsBooking')
+        }
+        reset()
+    }, [])
+
+    useEffect(() => {
+        if (timeoutId) {
+            clearTimeout(timeoutId)
+        }
+        const newtimeoutId = setTimeout(async () => {
+            const res = await axios.post('/api/resetIsBooking')
+        }, 900000)
+        setTimeoutId(newtimeoutId)
+    }, [change])
 
     return (
         <div className='lg:hidden w-full'>

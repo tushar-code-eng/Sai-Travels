@@ -48,7 +48,6 @@ const LpBox = () => {
     const [pick, setPick] = useRecoilState(PickUpPointAtom)
     const [drop, setDrop] = useRecoilState(DropOffPointAtom)
 
-    // const setSleeperDate = useSetRecoilState(SleeperDateAtom)
     const [sleeperDate, setSleeperDate] = useRecoilState(SleeperDateAtom)
 
     useEffect(() => {

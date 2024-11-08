@@ -1,36 +1,28 @@
 import dbConnection from "@/lib/dbConnection";
 import UserModel from "@/models/User";
-import bcrypt from 'bcryptjs'
-
-import { getToken } from 'next-auth/jwt';
 
 
 export async function POST(req: Request) {
     await dbConnection()
 
     try {
-        const { fullName, email, phone, password } = await req.json()
+        const { phone, email } = await req.json()
 
-        const hashedPassword = await bcrypt.hash(password, 10)
-
-        console.log("Details",fullName,email,phone,password)
+        console.log("ji")
 
         const userUpdate = await UserModel.findOne({ email })
         if (userUpdate) {
-            userUpdate.fullName = fullName
             userUpdate.phone = phone
-            userUpdate.password = hashedPassword
 
             await userUpdate.save()
-
-           
+            console.log("working")
             return Response.json(
                 {
                     success: true,
                     message: 'Details updated successfully',
                     user: { fullName: userUpdate.fullName, phone: userUpdate.phone, email: userUpdate.email },
                 },
-                { status: 201 }
+                { status: 200 }
             );
         } else {
             return Response.json(

@@ -8,17 +8,13 @@ import { totalPriceAtom } from "@/app/(Recoil)/(atom)/FirstPage"
 import { SleeperInterface } from "@/models/Sleeper"
 import { noOfPassangersAtom } from "@/app/(Recoil)/(atom)/FirstPage"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate"
 
 interface SleeperProps {
   n: SleeperInterface
   change: boolean
   setChange: React.Dispatch<React.SetStateAction<boolean>>
 }
-
-// interface SelectSleeperInterface {
-//   [key: string]: boolean;
-// }
 
 const Sleepers = ({ n, change, setChange }: SleeperProps) => {
 
@@ -28,11 +24,13 @@ const Sleepers = ({ n, change, setChange }: SleeperProps) => {
   const setTotalPrice = useSetRecoilState(totalPriceAtom)
   const setNoOfPassangers = useSetRecoilState(noOfPassangersAtom)
 
+  const sleeperDate = useRecoilValue(SleeperDateAtom)
 
   const handleClick = async (value: string) => {
     setChange(!change)
     const res = await axios.post('/api/setIsBooking', {
-      value
+      value,
+      sleeperDate
     })
 
     console.log(res)
@@ -42,19 +40,19 @@ const Sleepers = ({ n, change, setChange }: SleeperProps) => {
       [value]: !prevState[value]
     }))
 
-    setGreen((prevState) => ({
+    setGreen((prevState: any) => ({
       ...prevState,
       [value]: !prevState[value]
     }))
 
     if (select[value] === true) {
       //decreasing seat Count
-      setSeatCount(s => s - 1)
+      setSeatCount((s: number) => s - 1)
       setTotalPrice((prev: number) => prev - n.sleeperPrice)
       setNoOfPassangers((prev: number) => prev - 1)
     } else {
       //Increasing seat count
-      setSeatCount(s => s + 1)
+      setSeatCount((s: number) => s + 1)
       setTotalPrice((prev: number) => prev + n.sleeperPrice)
       setNoOfPassangers((prev: number) => prev + 1)
     }
