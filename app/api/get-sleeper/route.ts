@@ -5,9 +5,9 @@ import SleeperModel, { SleeperInterface } from "@/models/Sleeper";
 import SleeperAvailabilityTomorrowModel from "@/models/SleeperAvailability";
 // import SleeperModel from "@/models/Sleeper";
 import SleeperAvailabilityModel from "@/models/SleeperAvailability";
-import { NextApiRequest } from "next";
+// import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req:Request) {
     await dbConnection()
 
     const dateIncoming = req.url?.split("=")[1]
