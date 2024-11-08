@@ -8,14 +8,11 @@ export async function POST(req: Request) {
     try {
         const { phone, email } = await req.json()
 
-        console.log("ji")
-
         const userUpdate = await UserModel.findOne({ email })
         if (userUpdate) {
             userUpdate.phone = phone
 
             await userUpdate.save()
-            console.log("working")
             return Response.json(
                 {
                     success: true,
