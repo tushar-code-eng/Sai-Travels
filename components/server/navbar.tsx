@@ -218,8 +218,7 @@ const Navbar = () => {
           <Button
             onClick={() => {
               signIn('google',
-                // { callbackUrl: '/', } for development
-                { callbackUrl: '43.205.255.231/', } // for development
+                { callbackUrl: 'http://43.205.255.231/api/auth/callback/google', }
 
               )
             }}
