@@ -218,7 +218,9 @@ const Navbar = () => {
           <Button
             onClick={() => {
               signIn('google',
-                { callbackUrl: '/', }
+                // { callbackUrl: '/', } for development
+                { callbackUrl: '43.205.255.231/', } // for development
+
               )
             }}
             className="text-center p-2 text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"
