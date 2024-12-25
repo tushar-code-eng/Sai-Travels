@@ -16,7 +16,7 @@ import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/IMG_0863.png'
 import Image from 'next/image';
 
-import { useSession, } from "next-auth/react";
+import { signIn, useSession, } from "next-auth/react";
 
 
 const Page = () => {
@@ -75,12 +75,25 @@ const Page = () => {
     try {
       const res = await axios.post('/api/add-details', { phone: phoneNumber, email: currentEmail })
 
-      toast({
-        title: 'Success',
-        description: res.data.message,
-      });
-      console.log("Pushing")
-      router.push('/');
+      if (res.status == 200) {
+        await signIn("credentials", {
+          redirect: false,
+          email: currentEmail,
+          phone: phoneNumber,
+          automaticverification: true
+        })
+        toast({
+          title: 'Success',
+          description: res.data.message,
+        });
+        router.replace('/');
+      } else {
+        toast({
+          title: 'Failed',
+          description: "Cannot add phone number to session",
+        });
+      }
+
 
     } catch (error) {
       console.log("Not Pushing")

@@ -25,8 +25,6 @@ import {
   DialogTrigger,
   DialogFooter
 } from "@/components/ui/dialog"
-import { useRecoilState } from "recoil";
-import { openSideBarAtom } from "@/app/(Recoil)/(atom)/OpenSideBr";
 import { Session } from "next-auth";
 
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -34,6 +32,7 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 const Navbar = () => {
 
   const { data: session, status } = useSession() as { data: Session | null; status: string };
+  console.log(status)
 
   const router = useRouter()
 
@@ -168,12 +167,12 @@ const Navbar = () => {
                   {session?.user?.image ? (
                     <img
                       src={session.user.image}
-                      alt={session.user.fullName || 'Profile Picture'}
+                      alt={session.user.name || 'Profile Picture'}
                       className="w-12 h-12 rounded-full"
                     />
                   ) : (
                     <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                      {session?.user?.fullName ? session.user.fullName.charAt(0).toUpperCase() : '?'}
+                      {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : '?'}
                     </div>
                   )}
                 </div>
@@ -200,7 +199,7 @@ const Navbar = () => {
 
                 <DropdownMenuItem>
                   <Button
-                    onClick={() => signOut()}
+                    onClick={() => signOut({ callbackUrl: "http://localhost:3000" })}
                     className="py-2 px-4 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-center"
                   >
                     Sign Out
@@ -215,11 +214,11 @@ const Navbar = () => {
             <Link href="/sign-in">Sign In</Link>
           </Button>
 
+          {/* { callbackUrl: 'http://43.205.255.231/api/auth/callback/google', } */}
           <Button
             onClick={() => {
               signIn('google',
-                { callbackUrl: 'http://43.205.255.231/api/auth/callback/google', }
-
+                { callbackUrl: '/' }
               )
             }}
             className="text-center p-2 text-orange-600 bg-transparent border-2 border-orange-600 font-bold text-base hover:bg-white hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out"

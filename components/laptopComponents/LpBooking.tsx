@@ -34,6 +34,8 @@ const LpBooking = () => {
 
     const router = useRouter()
 
+    const [sleeperLoading, setSleeperLoading] = useState(false)
+
     const select = useRecoilValue(selectAtom)
     const seatCount = useRecoilValue(seatCountAtom)
     const totalPrice = useRecoilValue(totalPriceAtom)
@@ -48,8 +50,10 @@ const LpBooking = () => {
     const sleeperDate = useRecoilState(SleeperDateAtom)
 
     useEffect(() => {
+        setSleeperLoading(true)
         const fetchSleepers = async () => {
             try {
+                console.log(sleeperLoading)
                 const res = await axios.get('/api/get-sleeper', {
                     params: {
                         sleeperDate
@@ -69,6 +73,8 @@ const LpBooking = () => {
                 console.log(All)
             } catch (err) {
                 console.error('Error in fetching sleepers:', err)
+            } finally {
+                setSleeperLoading(false)
             }
         }
         fetchSleepers()
@@ -188,7 +194,7 @@ const LpBooking = () => {
                 </div>
                 <div className='flex w-full'>
                     <div>
-                        <Berth change={change} setChange={setChange} />
+                        <Berth sleeperLoading={sleeperLoading} change={change} setChange={setChange} />
                     </div>
                     <div className='mx-4 flex-col items-start w-full hidden 2xl:flex'>
                         <div className='flex gap-6 items-center justify-between w-full mb-3'>

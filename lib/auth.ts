@@ -20,15 +20,13 @@ export const authOptions: NextAuthOptions = {
                 password: { label: 'Password', type: 'password' },
             },
             async authorize(credentials: any): Promise<any> {
+                if (!credentials) return null;
+
                 await dbConnection();
-                // console.log(credentials)
+
                 try {
-                    const user = await UserModel.findOne({
-                        $or: [
-                            { email: credentials.email },
-                            // { phone: credentials.identifier },
-                        ],
-                    });
+                    const correctEmail = decodeURIComponent(credentials.email)
+                    const user = await UserModel.findOne({ email: correctEmail });
                     console.log(user)
 
                     if (!user) {
@@ -37,12 +35,27 @@ export const authOptions: NextAuthOptions = {
                     if (!user.isVerified) {
                         throw new Error('Please verify your account before logging in');
                     }
+
+                    if (credentials.automaticverification) {
+                        return {
+                            id: user._id,
+                            name: user.fullName,
+                            email: user.email,
+                            phone: user.phone
+                        }
+                    }
+
                     const isPasswordCorrect = await bcrypt.compare(
                         credentials.password,
                         user.password
                     );
                     if (isPasswordCorrect) {
-                        return user;
+                        return {
+                            id: user._id,
+                            name: user.fullName,
+                            email: user.email,
+                            phone: user.phone
+                        }
                     } else {
                         throw new Error('Incorrect password');
                     }
@@ -87,6 +100,7 @@ export const authOptions: NextAuthOptions = {
 
             if (user) {
                 token._id = user._id?.toString();
+                token.image = user.image
                 token.isVerified = user.isVerified;
                 token.fullName = user.fullName;
                 token.email = user.email
@@ -97,6 +111,7 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             if (token) {
                 session.user._id = token._id;
+                session.user.image = token.image
                 session.user.isVerified = token.isVerified;
                 session.user.fullName = token.fullName;
                 session.user.email = token.email;

@@ -11,12 +11,13 @@ import axios from "axios"
 import { SleeperDateAtom } from "@/app/(Recoil)/(atom)/SleeperDate"
 
 interface SleeperProps {
+  sleeperLoading: boolean
   n: SleeperInterface
   change: boolean
   setChange: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const Sleepers = ({ n, change, setChange }: SleeperProps) => {
+const Sleepers = ({ sleeperLoading, n, change, setChange }: SleeperProps) => {
 
   const [select, setSelect] = useRecoilState<selectinterface>(selectAtom)
   const [green, setGreen] = useRecoilState(greenAtom)
@@ -59,11 +60,12 @@ const Sleepers = ({ n, change, setChange }: SleeperProps) => {
   }
 
   return (
-    <div className="w-14 relative flex justify-start">
+    <div className=" w-14 relative flex justify-start">
+
       <div className={`h-16 w-11 rounded-lg flex justify-center items-center mt-3 cursor-pointer transition-transform ease-in-out duration-200 transform border-0 hover:scale-120
-        ${green[n.sleeperName] ? " bg-green-600 text-white " : "h-16 w-11 bg-slate-100 "}
-        ${n.isBeingBooked || n.isBooked && "pointer-events-none opacity-50"}
-      `}
+          ${green[n.sleeperName] ? " bg-green-600 text-white " : "h-16 w-11 bg-slate-100 "}
+          ${n.isBeingBooked || n.isBooked && "pointer-events-none opacity-50"}
+        `}
         onClick={() => handleClick(n.sleeperName)}>
 
         {n.sleeperName}

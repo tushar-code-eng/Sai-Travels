@@ -22,6 +22,8 @@ import { Separator } from '@radix-ui/react-dropdown-menu';
 
 import { useRecoilValue } from 'recoil';
 import { confirmationResultAtom } from '@/app/(Recoil)/(atom)/confirmationResult';
+import { sign } from 'crypto';
+import { signIn } from 'next-auth/react';
 
 // Add this type definition
 type ConfirmationResult = {
@@ -85,11 +87,7 @@ export default function VerifyAccount() {
         const verificationCodeEmail = code.join('');
         const verificationCodePhone = otp.join('');
         try {
-            // if (!confirmationResult) {
-            //     throw new Error('No confirmation result available');
-            // }
-
-            // await confirmationResult.confirm(verificationCodePhone);
+            
             setOtp(Array(6).fill(''));
 
             const Emailresponse = await axios.post<ApiResponse>(`/api/verify-code`, {
@@ -98,14 +96,31 @@ export default function VerifyAccount() {
                 code: verificationCodeEmail,
             });
 
-            // await confirmationResult.confirm(verificationCodePhone);
+            if(Emailresponse.status == 200){
+                const ss = await signIn("credentials",{
+                    redirect:false,
+                    email:params.email,
+                    automaticverification:true
+                })
+                console.log(decodeURIComponent(params.email))
+                console.log(ss)
 
-            toast({
-                title: 'Success',
-                description: Emailresponse.data.message,
-            });
+                if(ss?.ok){
+                    toast({
+                        title: 'Success',
+                        description: Emailresponse.data.message,
+                    });
+                    router.replace('/');
+                }else{
+                    toast({
+                        title: 'Failed',
+                        description: "Not Able to redirect to home page",
+                    });
+                }
+            }
 
-            router.replace('/sign-in');
+
+            
         } catch (error) {
             const axiosError = error as AxiosError<ApiResponse>;
             console.log(error)

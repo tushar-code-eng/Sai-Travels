@@ -19,7 +19,6 @@ export async function POST(request: Request) {
             );
         }
 
-        // Check if the code is correct and not expired
         const isCodeValid = user.verifyCode === code;
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
 
@@ -34,7 +33,6 @@ export async function POST(request: Request) {
             );
         } else if (!isCodeNotExpired) {
 
-            // Code has expired
             return Response.json(
                 {
                     success: false,
@@ -43,7 +41,6 @@ export async function POST(request: Request) {
                 { status: 400 }
             );
         } else {
-            // Code is incorrect
             return Response.json(
                 { success: false, message: 'Incorrect verification code' },
                 { status: 400 }

@@ -80,19 +80,17 @@ export function ProfilePage() {
             
             </Image> */}
                 <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                    {session?.user?.fullName ? session.user.fullName.charAt(0).toUpperCase() : '?'}
+                    {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : '?'}
                 </div>
             </div>
 
             <form className="my-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+                    
                     <LabelInputContainer>
-                        <Label htmlFor="firstname">First name</Label>
-                        <Input onChange={(e) => { setChangesMade(true); setFirstName(e.target.value) }} defaultValue={session?.user.fullName.split(" ")[0]?.charAt(0).toUpperCase() + session?.user.fullName.split(" ")[0]?.slice(1)} id="firstname" placeholder="Tyler" type="text" />
-                    </LabelInputContainer>
-                    <LabelInputContainer>
-                        <Label htmlFor="lastname">Last name</Label>
-                        <Input onChange={(e) => { setChangesMade(true); setLastName(e.target.value) }} defaultValue={session?.user.fullName.split(" ")[1]?.charAt(0).toUpperCase() + session?.user.fullName.split(" ")[1]?.slice(1)} id="lastname" placeholder="Durden" type="text" />
+                        <Label htmlFor="lastname">Full name</Label>
+                        <Input onChange={(e) => { setChangesMade(true); setLastName(e.target.value) }} defaultValue={session?.user.name} id="lastname" placeholder="Durden" type="text" />
+                        {/* .split(" ")[1]?.charAt(0).toUpperCase() + session?.user.fullName.split(" ")[1]?.slice(1) */}
                     </LabelInputContainer>
                 </div>
                 <LabelInputContainer className="mb-4">
