@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,6 @@ export function ProfilePage() {
             title: res.data.title,
             description: res.data.message
         })
-        console.log("Form submitted");
     };
 
     const handleSubmitPassword = async () => {
@@ -76,21 +75,18 @@ export function ProfilePage() {
                 <h2 className="font-bold text-2xl text-neutral-800 dark:text-neutral-200">
                     Edit Profile
                 </h2>
-                {/* <Image src="" alt="hello">
-            
-            </Image> */}
-                <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                    {session?.user?.name ? session.user.name.charAt(0).toUpperCase() : '?'}
+
+                <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center overflow-hidden text-white text-xl font-bold">
+                    <img src={session?.user.image} alt="" />
                 </div>
             </div>
 
             <form className="my-8" onSubmit={handleSubmit}>
                 <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-                    
+
                     <LabelInputContainer>
-                        <Label htmlFor="lastname">Full name</Label>
+                        <Label htmlFor="FullName">Full name</Label>
                         <Input onChange={(e) => { setChangesMade(true); setLastName(e.target.value) }} defaultValue={session?.user.name} id="lastname" placeholder="Durden" type="text" />
-                        {/* .split(" ")[1]?.charAt(0).toUpperCase() + session?.user.fullName.split(" ")[1]?.slice(1) */}
                     </LabelInputContainer>
                 </div>
                 <LabelInputContainer className="mb-4">
@@ -99,7 +95,7 @@ export function ProfilePage() {
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
                     <Label htmlFor="phone">Phone</Label>
-                    <Input defaultValue={'+91-' + session?.user.phone} className="cursor-not-allowed" disabled id="phone" placeholder="" type="text" />
+                    <Input defaultValue={"+91-"+ session?.user.phone} className="cursor-not-allowed" disabled id="phone" placeholder="" type="text" />
                 </LabelInputContainer>
 
                 {

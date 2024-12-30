@@ -223,7 +223,7 @@ const LpPassangerDetails = () => {
                                     <div className='flex gap-2 items-center justify-start'>
                                         <div>Phone No.</div>
                                         <div className="border-2 py-2 px-3 rounded-lg">+91</div>
-                                        <input defaultValue={session?.user.phone} required className="border-2 py-2 px-3 rounded-lg" type="text" value={session?.user.phoneNo} onChange={(e) => { setContactPhone(e.target.value) }} />
+                                        <input defaultValue={session?.user.phone} required className="border-2 py-2 px-3 rounded-lg" type="text"  onChange={(e) => { setContactPhone(e.target.value) }} />
                                     </div>
                                     <div className='flex gap-2 items-center justify-start' >
                                         <div>Email -</div>

@@ -118,6 +118,13 @@ export const authOptions: NextAuthOptions = {
                 session.user.phone = token.phone
 
             }
+
+            const user = await UserModel.findOne({email:session.user.email})
+
+            session.user.email = user?.email 
+            session.user.name = user?.fullName 
+            session.user.phone = user?.phone
+
             return session;
         }
     },

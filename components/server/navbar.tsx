@@ -42,7 +42,7 @@ const Navbar = () => {
 
 
   return (
-    <div className="p-3 w-full m-auto flex items-center justify-between bg-white text-black sticky top-0 z-10 shadow-md rounded-lg lg:w-full lg:px-8 lg:top-1 ">
+    <div className="p-3 w-full m-auto flex items-center justify-between bg-white text-black sticky top-0 z-20 shadow-md rounded-lg lg:w-full lg:px-8 lg:top-0 ">
       <div className='flex cursor-pointer w-28 justify-center items-center sm:w-20 ' onClick={() => handleClick()}>
         <div className="flex font-medium items-center">
           <Image src={LOGO} alt="LOGO" />

@@ -71,16 +71,16 @@ const LpBox = () => {
 
     return (
         <div>
-            <div className="rounded-xl shadow-xl w-[88%] m-auto mb-10">
+            <div className="rounded-xl border-2 border-slate-600 shadow-xl w-[90%] m-auto mb-10">
                 <div className='p-3 flex justify-between'>
                     <DropdownMenu >
                         <DropdownMenuTrigger>
-                            <div className='hover:border rounded-xl p-2 flex flex-col items-start justify-center xl:min-w-80'>
+                            <div className='border rounded-xl p-2 flex flex-col items-start justify-center xl:min-w-80'>
                                 <div className='text-xs'>
                                     <b>Chandigarh</b>
                                 </div>
                                 <div className='w-full overflow-hidden flex justify-start items-center '>
-                                    <div className='w-full'>
+                                    <div className='w-full '>
                                         <div className=' w-full flex items-center justify-between'>
                                             <div className={`text-base w-full text-left ${pick === "Departure Location..." ? "text-slate-400 " : "text-black "}? `}>
                                                 {pick}
@@ -94,13 +94,13 @@ const LpBox = () => {
                                                 <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full text-slate-400' onClick={() => setPick("Departure Location...")}>Departure Location...</div>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem >
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 22B Chandiagrh")}>Sector 22B Chandiagrh</div>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 22B Chandiagrh")}>Sector 22B, Chandiagrh</div>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem>
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Place 2")}>Place 2</div>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Kharar, Bus Stand")}>Kharar, Bus Stand</div>
                                             </DropdownMenuItem>
                                             <DropdownMenuItem>
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Place 3")}>Place 3</div>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setPick("Sector 25 Maharana Pratap hostel")}>Sector 25, Maharana Pratap hostel</div>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </div>
@@ -110,7 +110,7 @@ const LpBox = () => {
                     </DropdownMenu>
                     <DropdownMenu >
                         <DropdownMenuTrigger>
-                            <div className='hover:border rounded-xl  p-2 flex flex-col items-start justify-center xl:min-w-80'>
+                            <div className='border rounded-xl  p-2 flex flex-col items-start justify-center xl:min-w-80'>
                                 <div className='text-xs'>
                                     <b>Jammu</b>
                                 </div>
@@ -128,14 +128,14 @@ const LpBox = () => {
                                             <DropdownMenuItem >
                                                 <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full text-slate-400' onClick={() => setDrop("Arival Location...")}>Arival Location...</div>
                                             </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Kunjwani Bypass, Jammu")}>Kunjwani Bypass, Jammu</div>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Satwari Chownk")}>Satwari Chownk</div>
+                                            </DropdownMenuItem>
                                             <DropdownMenuItem >
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Somewhere in Jammu")}>Somewhere in Jammu</div>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem>
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 2")}>Place 2</div>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem>
-                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Place 3")}>Place 3</div>
+                                                <div className='cursor-pointer text-base transition-transform ease-in-out duration-200 transform hover:scale-110 w-full' onClick={() => setDrop("Trikuta Complex BC Road Jammu")}>Trikuta Complex BC Road Jammu</div>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </div>
