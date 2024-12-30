@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import {  useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import googleIcon from '@/public/GoogleIcon.webp'
 import logo from '@/public/logo.png'
 import Image from 'next/image';
@@ -120,11 +120,26 @@ const SignInForm = () => {
               {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </div>
+
         </form>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="mt-6">
 
-        
+          <Button
+            onClick={() => {
+              signIn('google',
+                { callbackUrl: '/' }
+              )
+            }}
+            className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
+          >
+            Sign Up with Google
+            <Image className='w-8' src={googleIcon} alt="Google" />
+          </Button>
+        </div>
+
+
         <div className='flex justify-center'>
           <a href='/sign-up'>New User? <u>Sign Up</u></a>
         </div>

@@ -251,9 +251,11 @@ const SignUp = () => {
                 <div className="mt-6">
                     
                     <Button
-                        onClick={() => signIn('google',
-                            { callbackUrl: '/complete-profile', }
-                        )}
+                        onClick={() => {
+                            signIn('google',
+                              { callbackUrl: '/' }
+                            )
+                          }}
                         className="w-full bg-white text-black border-black hover:bg-slate-200 border py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                     >
                         Sign Up with Google

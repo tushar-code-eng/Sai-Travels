@@ -71,8 +71,6 @@ const MbBooking = () => {
                 console.log(All)
             } catch (err) {
                 console.error('Error in fetching sleepers:', err)
-            } finally {
-                setSleeperLoading(false)
             }
         }
         fetchSleepers()
