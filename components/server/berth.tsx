@@ -25,43 +25,10 @@ const Berth = ({ sleeperLoading, change, setChange }: BerthProps) => {
     const [AllSleepers, setAllSleepers] = useRecoilState(AllSleepersAtom)
 
     return (
+
         <>
-            {
-                sleeperLoading ?
-                    <div className="flex w-[580px] justify-between gap-4">
-                        <div className="relative h-144 w-72 overflow-hidden bg-gray-200">
-                            <style>
-                                {`
-          @keyframes shimmerVertical {
-            0% {
-              transform: translateY(-100%);
-            }
-            100% {
-              transform: translateY(100%);
-            }
-          }
-          .shimmer-effect::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-              to bottom,
-              transparent 0%,
-              rgba(255, 255, 255, 0.8) 50%,
-              transparent 100%
-            );
-            animation: shimmerVertical 1s infinite;
-          }
-        `}
-                            </style>
-                            <div className="shimmer-effect h-full w-full" />
-                        </div>
-                        <div className="relative h-144 w-72 overflow-hidden bg-gray-200">
-                            <style>
-                                {`
+            <style>
+                {`
           @keyframes shimmerVertical {
             0% {
               transform: translateY(-100%);
@@ -86,7 +53,14 @@ const Berth = ({ sleeperLoading, change, setChange }: BerthProps) => {
             animation: shimmerVertical 1.5s infinite;
           }
         `}
-                            </style>
+            </style> 
+            {
+                sleeperLoading ?
+                    <div className="flex w-[580px] justify-between gap-4">
+                        <div className="relative h-[550px] w-[280px]  overflow-hidden bg-gray-200">
+                            <div className="shimmer-effect h-full w-full" />
+                        </div>
+                        <div className="relative h-[550px] w-[280px] overflow-hidden bg-gray-200">
                             <div className="shimmer-effect h-full w-full" />
                         </div>
                     </div >
