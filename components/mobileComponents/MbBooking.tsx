@@ -34,6 +34,8 @@ const MbBooking = () => {
 
     const router = useRouter()
 
+    const [sleeperLoading, setSleeperLoading] = useState(false)
+
     const select = useRecoilValue(selectAtom)
     const seatCount = useRecoilValue(seatCountAtom)
     const totalPrice = useRecoilValue(totalPriceAtom)
@@ -69,6 +71,8 @@ const MbBooking = () => {
                 console.log(All)
             } catch (err) {
                 console.error('Error in fetching sleepers:', err)
+            } finally {
+                setSleeperLoading(false)
             }
         }
         fetchSleepers()
@@ -167,7 +171,7 @@ const MbBooking = () => {
                 </div>
                 <div className="overflow-x-auto mt-4 flex justify-start items-center sm:justify-center">
                     <div>
-                        <Berth change={change} setChange={setChange} />
+                        <Berth sleeperLoading={sleeperLoading} change={change} setChange={setChange} />
                     </div>
                 </div>
                 <div>
