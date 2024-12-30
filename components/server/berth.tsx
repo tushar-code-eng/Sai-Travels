@@ -29,11 +29,65 @@ const Berth = ({ sleeperLoading, change, setChange }: BerthProps) => {
             {
                 sleeperLoading ?
                     <div className="flex w-[580px] justify-between gap-4">
-                        <div className="w-[280px] h-[550px] rounded-xl bg-gray-200" >
-                            
-                        </div >
-                        <div className="w-[280px] h-[550px] rounded-xl bg-gray-200">
-
+                        <div className="relative h-144 w-72 overflow-hidden bg-gray-200">
+                            <style>
+                                {`
+          @keyframes shimmerVertical {
+            0% {
+              transform: translateY(-100%);
+            }
+            100% {
+              transform: translateY(100%);
+            }
+          }
+          .shimmer-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              to bottom,
+              transparent 0%,
+              rgba(255, 255, 255, 0.8) 50%,
+              transparent 100%
+            );
+            animation: shimmerVertical 1s infinite;
+          }
+        `}
+                            </style>
+                            <div className="shimmer-effect h-full w-full" />
+                        </div>
+                        <div className="relative h-144 w-72 overflow-hidden bg-gray-200">
+                            <style>
+                                {`
+          @keyframes shimmerVertical {
+            0% {
+              transform: translateY(-100%);
+            }
+            100% {
+              transform: translateY(100%);
+            }
+          }
+          .shimmer-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              to bottom,
+              transparent 0%,
+              rgba(255, 255, 255, 0.8) 50%,
+              transparent 100%
+            );
+            animation: shimmerVertical 1.5s infinite;
+          }
+        `}
+                            </style>
+                            <div className="shimmer-effect h-full w-full" />
                         </div>
                     </div >
                     :
